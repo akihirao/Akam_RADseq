@@ -30,11 +30,11 @@ pip install pyxel
 Run a series of the shell scripts in the order listes after changing paths according to your environemt:
  
 ```bash
-Sim.01.Col6909.genome.sh
-Sim.02.Make.mother.reads.sh
-Sim.03.Make.mutants.reads.sh
+Pipe.01.BWA_mapping.sh
+Pipe.02.eagle_rc.sh
+Pipe.03.BamFiltering.sh
 ...
-Sim.13.VCFCompare.sh
+Pipe.10.GenotypeFiltering.sh
 ```
 
 
