@@ -1,5 +1,5 @@
 #!/bin/bash
-#Pipe2.eagle_rc.sh
+#Pipe.02.eagle_rc.sh
 
 set -exuo pipefail
 

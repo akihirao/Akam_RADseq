@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe7.SelectVariants.sh
+#Pipe.07.SelectVariants.sh
 
 set -exuo pipefail
 

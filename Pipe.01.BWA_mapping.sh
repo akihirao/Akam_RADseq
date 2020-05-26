@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe1.BWA_mapping.sh
+#Pipe.01.BWA_mapping.sh
 
 set -exuo pipefail
 

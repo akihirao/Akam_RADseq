@@ -1,5 +1,5 @@
 #!/bin/bash
-#Pipe10.GenotypeFiltering.sh
+#Pipe.10.GenotypeFiltering.sh
 #by Akira S. Hirao
 
 SCRIPT_DIR=$(cd $(dirname $0)  && pwd)

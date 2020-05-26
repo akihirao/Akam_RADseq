@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe4.HaplotypeCaller.sh
+#Pipe.04.HaplotypeCaller.sh
 
 set -exuo pipefail
 

@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe8.VariantFiltration.sh
+#Pipe.08.VariantFiltration.sh
 
 set -exuo pipefail
 

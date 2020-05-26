@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe3.BamFiltered.sh
+#Pipe.03.BamFiltered.sh
 
 set -exuo pipefail
 

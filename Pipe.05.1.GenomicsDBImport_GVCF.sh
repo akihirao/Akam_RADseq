@@ -1,5 +1,5 @@
 #!/bin/bash -i
-#Pipe5.1.GenomicsDBImport_GVCF.sh
+#Pipe.05.1.GenomicsDBImport_GVCF.sh
 #for H homeologs
 
 set -exuo pipefail
