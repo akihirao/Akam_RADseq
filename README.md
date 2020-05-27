@@ -33,7 +33,7 @@ pip install pyxel
 
 
 ## Usage
-Run a series of the shell scripts in the order listes after changing paths according to your environemt:
+Run a series of the shell scripts in the order listed after changing paths according to your environemt:
  
 ```bash
 Pipe.01.BWA_mapping.sh
