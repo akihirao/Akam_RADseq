@@ -153,8 +153,6 @@ bcftools index -f Akm.alyr.indel.DPfilterNoCall.vcf.gz
 
 #=====================================================================
 
-#COMMENTOUT
-
 
 cd $SCRIPT_DIR
 
