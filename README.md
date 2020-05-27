@@ -25,7 +25,7 @@ Briskine, R. V. et al. (2016) Genome assembly and annotation of <i>Arabidopsis h
 ## Flowchart
  
 <p align="center">
-  <img src="https://github.com/yjx1217/simuG/blob/master/simuG.logo.png" alt="simuG logo" width="361" height="286"/>
+  <img src="https://github.com/akihirao/tree/master/images/AkmRADseq.SNP.workflow.png"/>
 </p>
 
 
