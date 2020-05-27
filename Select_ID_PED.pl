@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 #Select_ID_PED.pl
-#2020,5.25
-#Plink PEDファイルのIDをセレクト
+#Selecting individual ID from a Plink PED file
 #how to use 
 #$ perl Select_ID_PED.pl < input.ped
 
