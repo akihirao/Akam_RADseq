@@ -1,6 +1,7 @@
 #!/bin/bash -i
 #Pipe.06.GenotypeGVCF.sh
-#by Akira S. Hirao
+#by HIRAO Akira
+
 
 set -exuo pipefail
 
