@@ -10,7 +10,7 @@ Bioinformatics pipeline for variant calling workflow for RAD-seq analysis of <i>
 * BWA: Burrow-Wheeler Aligner (http://bio-bwa.sourceforge.net) 
 * gatk: Genome Analysis Toolkit (https://gatk.broadinstitute.org/)
 * EAGLE: Explicit Alternative Genome Likelihood Evaluator (https://github.com/tony-kuo/eagle)
-
+* Plink: Whole-genome association analysis tool (https://www.cog-genomics.org/plink/)
 
 The environment under Ubuntu 18.04 is tested. The versions of tools used are documented in a series of shell scripts.
 
