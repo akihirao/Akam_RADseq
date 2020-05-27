@@ -17,9 +17,9 @@ The environments under Ubuntu 18.04 and/or CentOS 7.5 are tested. The versions o
 ## Reference genomes
 <i>Arabidopsis kamchatica</i> is an allopolyploid species derived from the two diploid species <i>A. halleri</i> and <i>A. lyrata</i>. <i>Arabidopsis halleri</i> reference genome (hereafter H-genome) is from Briskine et al. 2016; <i>A. lyrata</i> reference genome (hereafter L-genome) is from Paape et al. 2018. 
 
-Paape T. et al. (2018) Patterns of polymorphism and selection in the subgenomes of the allopolyploid <i>Arabidopsis kamchatica</i>. Nature communications. 9(1):3909. https://doi.org/10.1038/s41467-018-06108-1
-
 Briskine, R. V. et al. (2016) Genome assembly and annotation of <i>Arabidopsis halleri</i>, a model for heavy metal hyperaccumulation and evolutionary ecology. Molecular Ecology. Resources 5: 1025–1036.  https://doi.org/10.1111/1755-0998.12604
+
+Paape T. et al. (2018) Patterns of polymorphism and selection in the subgenomes of the allopolyploid <i>Arabidopsis kamchatica</i>. Nature communications. 9(1):3909. https://doi.org/10.1038/s41467-018-06108-1
 
 
 ## Flowchart
