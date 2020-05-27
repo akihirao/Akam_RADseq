@@ -1,6 +1,7 @@
 #!/bin/bash -i
 #Pipe.05.2.GenomicsDBImport_GVCF.sh
-#for L homeologs
+#Handling L homeologous varinats
+#by HIRAO Akira
 
 set -exuo pipefail
 
