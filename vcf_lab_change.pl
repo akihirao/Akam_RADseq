@@ -1,25 +1,22 @@
 #! /usr/bin/perl
 #vcf_lab_change.pl
-#2018,7.23
-#vcfファイルのIDをpop+IDに変更する
+#replacing from individual ID in vcf file to combined ID (pop+individual)
 #how to use 
 #$ perl vcf_lab_change.pl < input.vcf
 
 
 #==================================================
-# Akm_26popsのラベルとIDファイルを読み込み、ヘッダーをハッシュ化
+# making hash from ID-pop labeling file
 open (IN, "POP_ID_list.txt");
 
-# ハッシュ初期化
+
 %pop_ID_list = ();
 
 while($line=<IN>){
 	chomp $line;
 	($kam_ID, $pop_ID) = split /\s+/,$line;
 	$pop_ID_list{$kam_ID} = $pop_ID;
-#	print $kam_ID, "\t", $pop_ID_list{$kam_ID}, "\n"; # ハッシュはキーと値を同時に格納しないといけない
 }
-# クローズ
 close(IN);
 #==================================================
 
@@ -34,7 +31,7 @@ while($line_vcf = <>){
   		@kam_kam_sample_revised = @kam_sample;
   		for ($i = 0; $i < $no_sample; $i++){
   			$target_kam_ID = $kam_sample[$i];
-  			$target_kam_ID =~ s/_a...//; #_ahal or _alyrを削除する
+  			$target_kam_ID =~ s/_a...//; #delete "_ahal" or "_alyr"
   			push @pop_ID_sample, $pop_ID_list{$target_kam_ID};
   		}
   		$last_pop_ID_sample = pop(@pop_ID_sample);
