@@ -1,5 +1,6 @@
 #!/bin/bash -i
 #Pipe.07.SelectVariants.sh
+#by HIRAO Akira
 
 set -exuo pipefail
 
