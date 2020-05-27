@@ -10,7 +10,7 @@ CPU=4
 
 module load samtools/1.10
 
-#foloder stored for BAM files
+#folder stored for BAM files
 source_data_folder=/zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk/bwa_out
 reference_folder=/zfs/Akm/data/Reference/Ahal_Alyr_v2_2_1/eagle
 
