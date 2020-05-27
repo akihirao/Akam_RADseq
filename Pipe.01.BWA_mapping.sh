@@ -1,6 +1,6 @@
 #!/bin/bash -i
 #Pipe.01.BWA_mapping.sh
-#by Hirao Akira
+#by HIRAO Akira
 
 set -exuo pipefail
 
