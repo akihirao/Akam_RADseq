@@ -1,7 +1,6 @@
 #! /usr/bin/perl
 #BED.Select.Ahal.pl
-#2018,7.23
-#BEDファイルの中でL-homeologを抽出するBED
+#Extracting H-homeologous sites from BED
 #how to use 
 #>perl BED.Select.Ahal < input.map
 
