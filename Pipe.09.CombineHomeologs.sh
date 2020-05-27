@@ -1,6 +1,6 @@
 #!/bin/bash
 #Pipe.09.CombineHomeologs.sh
-#by Hirao Akira
+#by HIRAO Akira
 
 set -exuo pipefail
 
