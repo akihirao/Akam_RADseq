@@ -43,5 +43,5 @@ Pipe.10.GenotypeFiltering.sh
 
 
 ## Note
- 
+This project is currently under development. Thank you!
 
