@@ -1,5 +1,6 @@
 #!/bin/bash -i
 #Pipe.03.BamFiltering.sh
+#by Hirao Akira
 
 set -exuo pipefail
 
