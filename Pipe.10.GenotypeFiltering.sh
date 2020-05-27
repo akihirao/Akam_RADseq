@@ -1,10 +1,9 @@
 #!/bin/bash
 #Pipe.10.GenotypeFiltering.sh
-#by Akira S. Hirao
+#by HIRAO Akira
 
 SCRIPT_DIR=$(cd $(dirname $0)  && pwd)
 
-#<< COMMENTOUT1
 module load vcftools/0.1.15
 module load samtools/1.10
 module load gatk/4.1.7.0
@@ -32,35 +31,33 @@ cd $plink_folder
 initial_input=$Akm_lab.$snp_lab
 output=$Akm_lab
 
-#mind 0.99 geno 0.99 <全然ダメな(>99% missing)個体とSNPを除く>
+#mind 0.99 geno 0.99: removing >99% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$initial_input --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$output.$lab_01 --recode
 
-#mind 0.95 geno 0.95 <全然ダメな(>95% missing)個体とSNPを除く>
+#mind 0.95 geno 0.95: removing >95% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$output.$lab_02 --recode
 
-#mind 0.9 geno 0.9 <残った中で、ダメな(> 90% missing) を除く>
+#mind 0.9 geno 0.9: removing >90% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_02 --mind 0.9 --geno 0.9 --allow-no-sex --out $plink_folder/$output.$lab_03 --recode
 
-#mind 0.8 geno 0.8 <残った中で、ダメな(> 80% missing) を除く>
+#mind 0.8 geno 0.8: removing >80% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_03 --mind 0.8 --geno 0.8 --allow-no-sex --out $plink_folder/$output.$lab_04 --recode
 
-#mind 0.7 geno 0.7 <残った中で、イマイチな(> 70% missing) を除く>
+#mind 0.7 geno 0.7: removing >70% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_04 --mind 0.7 --geno 0.7 --allow-no-sex --out $plink_folder/$output.$lab_05 --recode
 
-#mind 0.6 geno 0.6 <残った中で、微妙な(> 60% missing) を除く>
+#mind 0.6 geno 0.6: removing >60% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$output.$lab_06 --recode
 
-#maf 0.01 (カットでも) <ノイズになるマイナーアリルを除去>
+#maf 0.01: removing minor alleles with p < 0.01 
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.005 --allow-no-sex --out $plink_folder/$output.$lab_06maf0005 --recode --missing
-#maf 0.05 (カットでも) <ノイズになるマイナーアリルを除去>
+#maf 0.05: removing minor alleles with p < 0.05
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.01 --allow-no-sex --out $plink_folder/$output.$lab_06maf001 --recode --missing
 
-#maf 0.01 (カットでも) <ノイズになるマイナーアリルを除去>
+#maf 0.01: removing minor alleles with p < 0.01 
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.005 --allow-no-sex --out $plink_folder/$output.$lab_06maf0005A --recodeA --missing
-#maf 0.05 (カットでも) <ノイズになるマイナーアリルを除去>
+#maf 0.05: removing minor alleles with p < 0.05
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.01 --allow-no-sex --out $plink_folder/$output.$lab_06maf001A --recodeA --missing
-
-
 
 
 perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_05.map > $plink_folder/$output.$lab_05.bed
@@ -79,8 +76,6 @@ perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_05maf001.bed > 
 perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
 
 
-
-#$gatk_path/gatk SelectVariants \
 gatk SelectVariants \
 -R $reference_folder/Ahal_v2_2_1.fa \
 -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz \
@@ -93,7 +88,6 @@ vcftools --vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf\
  --plink --out $plink_folder/Akm.ahal.snp.thin_10K
 
 
-#$gatk_path/gatk SelectVariants \
 gatk SelectVariants \
 -R $reference_folder/Alyr_v2_2_1.fa \
 -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz \
