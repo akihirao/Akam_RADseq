@@ -25,7 +25,7 @@ Briskine, R. V. et al. (2016) Genome assembly and annotation of <i>Arabidopsis h
 ## Flowchart
  
 <p align="center">
-  <img src="https://github.com/akihirao/tree/master/images/AkmRADseq.SNP.workflow.png"/>
+  <img src="https://github.com/akihirao/blob/master/images/AkmRADseq.SNP.workflow.png"/>
 </p>
 
 
