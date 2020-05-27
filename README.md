@@ -1,5 +1,5 @@
 # Polymorphism analysis in the allopolyploid model plant <i>Arabidopsis kamchatica</i>
-Bioinformatics pipeline for variant calling workflow in RAD-seq of <i>Arabidopsis kamchatica</i>
+Bioinformatics pipeline for variant calling workflow for RAD-seq analysis of <i>Arabidopsis kamchatica</i>
  
 
 
