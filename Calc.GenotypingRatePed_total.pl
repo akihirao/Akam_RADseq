@@ -1,9 +1,7 @@
 #!/usr/bin/perl
 #Calc.GenotypingRatePed_total.pl
-#2018,7.17
-#ped formatのSNPtableからジェノタイピング率を算出する
-#パスが通った~/analtools/に本スクリプトを置き、実行
-#How2use
+#Estimating genotyping rate in PED format SNPs table
+#How to use
 # $ Calc.GenotypingRatePed.pl < input.ped
 #縮重コードはジェノタイピングされていないとみなす
 
