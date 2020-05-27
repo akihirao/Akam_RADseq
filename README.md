@@ -15,7 +15,7 @@ Bioinformatics pipeline for variant calling workflow for RAD-seq analysis of <i>
 The environment under Ubuntu 18.04 is tested. The versions of the tools used are documented in a series of shell scripts.
 
 ## Reference genomes
-<i>Arabidopsis kamchatica</i> is an allopolyploid species derived from the two diploid species <i>A. halleri</i> (particularly subsp. <i>gemmifera</i> distributed in East Asia) and <i>A. lyrata</i> (particularly subsp. <i>petraea</i> from Far East Russia). <i>Arabidopsis halleri</i> reference genome is from Briskine et al. 2016; <i>A. lyrata</i> reference genome is from Paape et al. 2018. 
+<i>Arabidopsis kamchatica</i> is an allopolyploid species derived from the two diploid species <i>A. halleri</i> (particularly subsp. <i>gemmifera</i> distributed in East Asia) and <i>A. lyrata</i> (particularly subsp. <i>petraea</i> from Far East Russia). <i>Arabidopsis halleri</i> reference genome (hereafter H-genome) is from Briskine et al. 2016; <i>A. lyrata</i> reference genome (hereafter L-genome) is from Paape et al. 2018. 
 
 Paape T. et al. (2018) Patterns of polymorphism and selection in the subgenomes of the allopolyploid <i>Arabidopsis kamchatica</i>. Nature communications. 9(1):3909. https://doi.org/10.1038/s41467-018-06108-1
 
@@ -24,12 +24,9 @@ Briskine, R. V. et al. (2016) Genome assembly and annotation of <i>Arabidopsis h
 
 ## Flowchart
  
-Install Pyxel with pip command.
- 
-```bash
-pip install pyxel
-```
-
+<p align="center">
+  <img src="https://github.com/yjx1217/simuG/blob/master/simuG.logo.png" alt="simuG logo" width="361" height="286"/>
+</p>
 
 
 ## Usage
