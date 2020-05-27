@@ -1,5 +1,5 @@
 #!/bin/bash
-#Pipe.09.Vcf_lab_edit.sh
+#Pipe.09.CombineHomeologs.sh
 #2020,5.22
 
 set -exuo pipefail
