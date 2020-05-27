@@ -1,6 +1,6 @@
 #!/bin/bash
 #Pipe.02.eagle_rc.sh
-#by Hirao Akira
+#by HIRAO Akira
 
 set -exuo pipefail
 
