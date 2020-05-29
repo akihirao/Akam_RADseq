@@ -8,7 +8,7 @@ Bioinformatics pipeline for SNPs calling workflow for RAD-seq analysis of <i>Ara
 * samtools: Tools for manipulating NGS data (https://github.com/samtools/samtools)
 * vcftools: A set of tools for working with VCF files (https://github.com/vcftools/vcftools)
 * BWA: Burrow-Wheeler Aligner (http://bio-bwa.sourceforge.net) 
-* gatk: Genome Analysis Toolkit (https://gatk.broadinstitute.org/)
+* GATK: Genome Analysis Toolkit (https://gatk.broadinstitute.org/)
 * EAGLE: Explicit Alternative Genome Likelihood Evaluator (https://github.com/tony-kuo/eagle)
 * Plink: Whole-genome association analysis tool (https://www.cog-genomics.org/plink/)
 
