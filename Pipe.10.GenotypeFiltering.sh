@@ -100,8 +100,8 @@ vcftools --vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf\
  --plink --out $plink_folder/Akm.alyr.snp.thin_10K
  
 
-plink --file $plink_folder/Akm.ahal.snp.thin_10K --merge $plink_folder/Akm.alyr.snp.thin_10K.ped $plink_folder/Akm.alyr.snp.thin_10K.map --recode --out $plink_folder/Akm.snp.thin_10K
-plink --noweb --allow-extra-chr --file $plink_folder/Akm.snp.thin_10K --allow-no-sex --out $plink_folder/Akm.snp.thin_10K.A --recodeA --missing
+plink --file $plink_folder/Akm.ahal.snp.thin_10K --merge $plink_folder/Akm.alyr.snp.thin_10K.ped $plink_folder/Akm.alyr.snp.thin_10K.map --indiv-sort 'natural'/'n' --recode --out $plink_folder/Akm.snp.thin_10K
+plink --noweb --allow-extra-chr --file $plink_folder/Akm.snp.thin_10K --allow-no-sex --out $plink_folder/Akm.snp.thin_10K.A --indiv-sort 'natural'/'n' --recodeA --missing
 
 
 
