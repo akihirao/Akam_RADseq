@@ -60,17 +60,17 @@ plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.005
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.01 --allow-no-sex --out $plink_folder/$output.$lab_06maf001A --recodeA --missing
 
 
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_05.map > $plink_folder/$output.$lab_05.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_05.bed > $plink_folder/$output.ahal.$lab_05.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_05.bed > $plink_folder/$output.alyr.$lab_05.bed
+perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06.map > $plink_folder/$output.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.ahal.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.alyr.$lab_06.bed
 
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_05maf0005.map > $plink_folder/$output.$lab_05maf0005.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_05maf0005.bed > $plink_folder/$output.ahal.$lab_05maf0005.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_05maf0005.bed > $plink_folder/$output.alyr.$lab_05maf0005.bed
+perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06maf0005.map > $plink_folder/$output.$lab_06maf0005.bed
+perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06maf0005.bed > $plink_folder/$output.ahal.$lab_06maf0005.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06maf0005.bed > $plink_folder/$output.alyr.$lab_06maf0005.bed
 
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_05maf001.map > $plink_folder/$output.$lab_05maf001.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_05maf001.bed > $plink_folder/$output.ahal.$lab_05maf001.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_05maf001.bed > $plink_folder/$output.alyr.$lab_05maf001.bed
+perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06maf001.map > $plink_folder/$output.$lab_06maf001.bed
+perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06maf001.bed > $plink_folder/$output.ahal.$lab_06maf001.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06maf001.bed > $plink_folder/$output.alyr.$lab_06maf001.bed
 
 #extracting ID from final.ped
 perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
@@ -79,32 +79,35 @@ perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_
 gatk SelectVariants \
 -R $reference_folder/Ahal_v2_2_1.fa \
 -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz \
--L $plink_folder/Akm.ahal.05maf001.bed \
+-L $plink_folder/Akm.ahal.06maf001.bed \
 --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args \
--O $vcf_folder/Akm.ahal.snp.final05maf001.vcf
+-O $vcf_folder/Akm.ahal.snp.final06maf001.vcf
 
-vcftools --vcf $vcf_folder/Akm.ahal.snp.final05maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.thin_10K.vcf
-vcftools --vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf\
- --plink --out $plink_folder/Akm.ahal.snp.thin_10K
+vcftools --vcf $vcf_folder/Akm.ahal.snp.final06maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.thin_10K.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.thin_10K.vcf > $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz
+#vcftools --vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf\
+# --plink --out $plink_folder/Akm.ahal.snp.thin_10K
 
 
 gatk SelectVariants \
 -R $reference_folder/Alyr_v2_2_1.fa \
 -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz \
--L $plink_folder/Akm.alyr.05maf001.bed \
+-L $plink_folder/Akm.alyr.06maf001.bed \
 --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args \
--O $vcf_folder/Akm.alyr.snp.final05maf001.vcf
+-O $vcf_folder/Akm.alyr.snp.final06maf001.vcf
 
-vcftools --vcf $vcf_folder/Akm.alyr.snp.final05maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.thin_10K.vcf
-vcftools --vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf\
- --plink --out $plink_folder/Akm.alyr.snp.thin_10K
+vcftools --vcf $vcf_folder/Akm.alyr.snp.final06maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.thin_10K.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.thin_10K.vcf > $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz
+tabix -p vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz
+#vcftools --vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf\
+# --plink --out $plink_folder/Akm.alyr.snp.thin_10K
  
+vcf-concat $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz | bgzip -c > $vcf_folder/Akm.snp.thin_10K.vcf.gz
 
-plink --file $plink_folder/Akm.ahal.snp.thin_10K --merge $plink_folder/Akm.alyr.snp.thin_10K.ped $plink_folder/Akm.alyr.snp.thin_10K.map --indiv-sort 'natural'/'n' --recode --out $plink_folder/Akm.snp.thin_10K
-plink --noweb --allow-extra-chr --file $plink_folder/Akm.snp.thin_10K --allow-no-sex --out $plink_folder/Akm.snp.thin_10K.A --indiv-sort 'natural'/'n' --recodeA --missing
-
-
-
+vcftools --gzvcf $vcf_folder/Akm.snp.thin_10K.vcf.gz\
+ --plink --out $plink_folder/Akm.snp.thin_10K
+plink --noweb --allow-extra-chr --file $plink_folder/Akm.snp.thin_10K --allow-no-sex --out $plink_folder/Akm.snp.thin_10K.A --recodeA --missing
 
 
 #Calculation of genotyping rate for each of filter_xx.ped
