@@ -19,35 +19,38 @@ cd $work_folder
 
 
 #Extracting snp for H homeologs
-gatk SelectVariants \
--R $reference_folder/Ahal_v2_2_1.fa \
--V Akm.ahal.raw.vcf.gz \
--select-type SNP \
--O Akm.ahal.raw.snp.vcf.gz
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V Akm.ahal.raw.vcf.gz\
+ -select-type SNP\
+ --restrict-alleles-to BIALLELIC\
+ -O Akm.ahal.raw.snp.vcf.gz
 
 #Extracting indel for H homeologs
-gatk SelectVariants \
--R $reference_folder/Ahal_v2_2_1.fa \
--V Akm.ahal.raw.vcf.gz \
--select-type INDEL \
--O Akm.ahal.raw.indel.vcf.gz
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V Akm.ahal.raw.vcf.gz\
+ -select-type INDEL\
+ --restrict-alleles-to BIALLELIC\
+ -O Akm.ahal.raw.indel.vcf.gz
 
 
 
 #Extracting snp for L homeologs
-gatk SelectVariants \
--R $reference_folder/Alyr_v2_2_1.fa \
--V Akm.alyr.raw.vcf.gz \
--select-type SNP \
--O Akm.alyr.raw.snp.vcf.gz
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V Akm.alyr.raw.vcf.gz\
+ -select-type SNP\
+ --restrict-alleles-to BIALLELIC\
+ -O Akm.alyr.raw.snp.vcf.gz
 
 #Extracting indel for L homeologs
-gatk SelectVariants \
--R $reference_folder/Alyr_v2_2_1.fa \
--V Akm.alyr.raw.vcf.gz \
--select-type INDEL \
--O Akm.alyr.raw.indel.vcf.gz
-
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V Akm.alyr.raw.vcf.gz\
+ -select-type INDEL\
+ --restrict-alleles-to BIALLELIC\
+ -O Akm.alyr.raw.indel.vcf.gz
 
 
 cd $SCRIPT_DIR
