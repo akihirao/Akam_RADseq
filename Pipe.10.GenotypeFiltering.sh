@@ -103,7 +103,9 @@ tabix -p vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz
 #vcftools --vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf\
 # --plink --out $plink_folder/Akm.alyr.snp.thin_10K
  
-vcf-concat $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz | bgzip -c > $vcf_folder/Akm.snp.thin_10K.vcf.gz
+vcf-concat $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz > $vcf_folder/Akm.snp.thin_10K.vcf
+bgzip -c $vcf_folder/Akm.snp.thin_10K.vcf > $vcf_folder/Akm.snp.thin_10K.vcf.gz
+tabix -p vcf $vcf_folder/Akm.snp.thin_10K.vcf.gz
 
 vcftools --gzvcf $vcf_folder/Akm.snp.thin_10K.vcf.gz\
  --plink --out $plink_folder/Akm.snp.thin_10K

@@ -1,0 +1,27 @@
+# spid-file generated: Wed Jun 10 21:11:49 GMT+09:00 2020
+
+# PHYLIP (RAxML) Parser questions
+PARSER_FORMAT=PHYLIP
+
+# Specify the format of the data:
+PHYLIP_PARSER_DATA_FORMAT_QUESTION=SIMPLE
+# Save partition file
+PHYLIP_PARSER_PARTITION_FILE_QUESTION=
+# Is it a relaxed PHYLIP format (e.g. from RAxML)?
+PHYLIP_PARSER_RELAXED_QUESTION=false
+# Do you want to load an additional file with sequence partitions separating loci?
+PHYLIP_PARSER_PARTITION_QUESTION=false
+# Specify the format of the distance matrix:
+PHYLIP_PARSER_MATRIX_FORMAT_QUESTION=LOWER
+# What type of data is listed in the PHYLIP (RAxML) file?
+PHYLIP_PARSER_DATA_TYPE_QUESTION=SEQUENCE
+
+# NEXUS Writer questions
+WRITER_FORMAT=NEXUS
+
+# Do you want to convert SNPs into binary format?
+NEXUS_WRITER_BINARY_QUESTION=false
+# Specify which data type should be included in the NEXUS file  (NEXUS can only analyze one data type per file):
+NEXUS_WRITER_DATA_TYPE_QUESTION=DNA
+# Specify the locus/locus combination you want to write to the NEXUS file:
+NEXUS_WRITER_LOCUS_COMBINATION_QUESTION=
