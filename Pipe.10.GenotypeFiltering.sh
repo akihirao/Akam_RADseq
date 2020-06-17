@@ -49,67 +49,103 @@ plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_04 --mind 0.7 
 #mind 0.6 geno 0.6: removing >60% missing individuals and/or sites
 plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$output.$lab_06 --recode
 
-#maf 0.01: removing minor alleles with p < 0.01 
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.005 --allow-no-sex --out $plink_folder/$output.$lab_06maf0005 --recode --missing
-#maf 0.05: removing minor alleles with p < 0.05
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.01 --allow-no-sex --out $plink_folder/$output.$lab_06maf001 --recode --missing
-
-#maf 0.01: removing minor alleles with p < 0.01 
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.005 --allow-no-sex --out $plink_folder/$output.$lab_06maf0005A --recodeA --missing
-#maf 0.05: removing minor alleles with p < 0.05
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_06 --maf 0.01 --allow-no-sex --out $plink_folder/$output.$lab_06maf001A --recodeA --missing
-
 
 perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06.map > $plink_folder/$output.$lab_06.bed
 perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.ahal.$lab_06.bed
 perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.alyr.$lab_06.bed
 
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06maf0005.map > $plink_folder/$output.$lab_06maf0005.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06maf0005.bed > $plink_folder/$output.ahal.$lab_06maf0005.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06maf0005.bed > $plink_folder/$output.alyr.$lab_06maf0005.bed
-
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06maf001.map > $plink_folder/$output.$lab_06maf001.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06maf001.bed > $plink_folder/$output.ahal.$lab_06maf001.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06maf001.bed > $plink_folder/$output.alyr.$lab_06maf001.bed
-
 #extracting ID from final.ped
 perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
 
 
-gatk SelectVariants \
--R $reference_folder/Ahal_v2_2_1.fa \
--V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz \
--L $plink_folder/Akm.ahal.06maf001.bed \
---sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args \
--O $vcf_folder/Akm.ahal.snp.final06maf001.vcf
+#--------------------------------------------------------------------------------------------------------------------
+#set filtered data without considering linkage disequribrium and minor alleles: H-subgenome
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
+ --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.ahal.06.bed\
+ -O $vcf_folder/Akm.ahal.snp.filter06.vcf
 
-vcftools --vcf $vcf_folder/Akm.ahal.snp.final06maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.thin_10K.vcf
-bgzip -c $vcf_folder/Akm.ahal.snp.thin_10K.vcf > $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz
-tabix -p vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz
-#vcftools --vcf $vcf_folder/Akm.ahal.snp.thin_10K.vcf\
-# --plink --out $plink_folder/Akm.ahal.snp.thin_10K
+#filtering out MAF < 0.01: H-subgenome
+vcftools --vcf $vcf_folder/Akm.ahal.snp.filter06.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.maf001.vcf > $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
+tabix -p $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
+
+#Convering from vcf to plink ped/map
+vcftools --vcf $vcf_folder/Akm.ahal.snp.maf001.vcf\
+ --plink --out $plink_folder/Akm.ahal.06maf001
+
+#LD-pruning: H-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.ahal.snp.maf001.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.ahal.snp.maf001
+
+#convert from LD-prune.in to BED: H-subgenome
+perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf001.prune.in > $plink_folder/Akm.ahal.LDpruned.bed
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
+ --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.ahal.LDpruned.bed\
+ -O $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf
+
+bgzip -c $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
+tabix -p $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 
 
+#set filtered data without considering linkage disequribrium and minor alleles: L-subgenome
 gatk SelectVariants \
 -R $reference_folder/Alyr_v2_2_1.fa \
 -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz \
--L $plink_folder/Akm.alyr.06maf001.bed \
 --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args \
--O $vcf_folder/Akm.alyr.snp.final06maf001.vcf
+-L $plink_folder/Akm.alyr.06.bed \
+-O $vcf_folder/Akm.alyr.snp.filter06.vcf
 
-vcftools --vcf $vcf_folder/Akm.alyr.snp.final06maf001.vcf --thin 10000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.thin_10K.vcf
-bgzip -c $vcf_folder/Akm.alyr.snp.thin_10K.vcf > $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz
-tabix -p vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz
-#vcftools --vcf $vcf_folder/Akm.alyr.snp.thin_10K.vcf\
-# --plink --out $plink_folder/Akm.alyr.snp.thin_10K
- 
-vcf-concat $vcf_folder/Akm.ahal.snp.thin_10K.vcf.gz $vcf_folder/Akm.alyr.snp.thin_10K.vcf.gz > $vcf_folder/Akm.snp.thin_10K.vcf
-bgzip -c $vcf_folder/Akm.snp.thin_10K.vcf > $vcf_folder/Akm.snp.thin_10K.vcf.gz
-tabix -p vcf $vcf_folder/Akm.snp.thin_10K.vcf.gz
+#filtering out MAF < 0.01: H-subgenome
+vcftools --vcf $vcf_folder/Akm.alyr.snp.filter06.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.maf001.vcf > $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
+tabix -p $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 
-vcftools --gzvcf $vcf_folder/Akm.snp.thin_10K.vcf.gz\
- --plink --out $plink_folder/Akm.snp.thin_10K
-plink --noweb --allow-extra-chr --file $plink_folder/Akm.snp.thin_10K --allow-no-sex --out $plink_folder/Akm.snp.thin_10K.A --recodeA --missing
+#Convering from vcf to plink ped/map
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.maf001.vcf.gz\
+ --plink --out $plink_folder/Akm.alyr.06maf001
+
+
+#LD-pruning: L-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.alyr.snp.maf001.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.alyr.snp.maf001
+
+#convert from LD-prune.in to BED: H-subgenome
+perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf001.prune.in > $plink_folder/Akm.alyr.LDpruned.bed
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
+ --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.alyr.LDpruned.bed\
+ -O $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf
+
+bgzip -c $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz
+tabix -p $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz
+#--------------------------------------------------------------------------------------------------------------------
+
+#Combing H- and L- plink ped/map files 06maf001
+plink --file $plink_folder/Akm.ahal.06maf001 --merge $plink_folder/Akm.alyr.06maf001.ped $plink_folder/Akm.alyr.06maf001.map --recode --out $plink_folder/Akm.06.maf001
+
+vcf-concat $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz > $vcf_folder/Akm.snp.maf001.LDpruned.vcf
+bgzip -c $vcf_folder/Akm.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz
+tabix -p vcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz
+
+vcftools --gzvcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz\
+ --plink --out $plink_folder/Akm.snp.maf001.LDpruned
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf001.LDpruned.ped\
+ --map $plink_folder/Akm.snp.maf001.LDpruned.map\
+ --out $plink_folder/Akm.snp.maf001.LDpruned.A\
+ --recodeA --missing
 
 
 #Calculation of genotyping rate for each of filter_xx.ped
@@ -141,15 +177,11 @@ echo $output.$lab_06.ped
 perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < $output.$lab_06.ped
 echo
 
-echo $output.$lab_06maf0005.ped
-perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < $output.$lab_06maf0005.ped
-echo
+echo Akm.06.maf001.ped
+perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < Akm.06.maf001.ped
 
-echo $output.$lab_06maf001.ped
-perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < $output.$lab_06maf001.ped
-
-echo Akm.snp.thin_10K.ped
-perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < Akm.snp.thin_10K.ped
+echo Akm.snp.maf001.LDpruned.ped
+perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < Akm.snp.maf001.LDpruned.ped
 
 
 cd $SCRIPT_DIR

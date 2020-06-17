@@ -16,19 +16,19 @@ cd $work_folder
 
 #vcf2phy
 java -Xmx1024m -Xms512m -jar $PGDSpider_path/PGDSpider2-cli.jar\
- -inputfile $vcf_folder/Akm.snp.thin_10K.vcf\
+ -inputfile $vcf_folder/Akm.snp.maf001.LDpruned.vcf\
  -inputformat VCF\
- -outputfile Akm.snp.thin_10K.phy\
+ -outputfile Akm.snp.maf001.LDpruned.phy\
  -outputformat PHYLIP\
- -spid $SCRIPT_DIR/VCF_to_PHYLIP.spid
+ -spid $SCRIPT_DIR/VCF2PHYLIP.spid
 
 #phy2nex
 java -Xmx1024m -Xms512m -jar $PGDSpider_path/PGDSpider2-cli.jar\
- -inputfile Akm.snp.thin_10K.phy\
+ -inputfile Akm.snp.maf001.LDpruned.phy\
  -inputformat PHYLIP\
- -outputfile Akm.snp.thin_10K.nex\
+ -outputfile Akm.snp.maf001.LDpruned.nex\
  -outputformat NEXUS\
- -spid $SCRIPT_DIR/PHYLIP_to_NEXUS.spid
+ -spid $SCRIPT_DIR/PHYLIP2NEXUS.spid
 
 
 cd $SCRIPT_DIR
