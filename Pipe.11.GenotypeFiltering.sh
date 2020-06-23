@@ -51,8 +51,8 @@ plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_05 --mind 0.6 
 
 
 perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06.map > $plink_folder/$output.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.ahal.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed > $plink_folder/$output.alyr.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed | sort -n -t "_" -k 5 -k 2,2  > $plink_folder/$output.ahal.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed | sort -n -t "_" -k 5 -k 2,2  > $plink_folder/$output.alyr.$lab_06.bed
 
 #extracting ID from final.ped
 perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
@@ -86,7 +86,7 @@ plink2 --allow-extra-chr\
 perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf001.prune.in > $plink_folder/Akm.ahal.LDpruned.bed
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf\
+ -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.LDpruned.bed\
  -O $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf
@@ -123,7 +123,7 @@ plink2 --allow-extra-chr\
 perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf001.prune.in > $plink_folder/Akm.alyr.LDpruned.bed
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
- -V $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf\
+ -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.alyr.LDpruned.bed\
  -O $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf
@@ -145,8 +145,8 @@ vcftools --gzvcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz\
 #modification of FID in plink pedmap (Popxxx -> Pop)
 perl $SCRIPT_DIR/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf001.LDpruned.ped > $plink_folder/Akm.snp.maf001.LDpruned.A.ped
 
-#modification of plink map for converting plink raw format
-perl $SCRIPT_DIR/PlinkMAP_modified2A.pl <  $plink_folder/Akm.snp.maf001.LDpruned.map > $plink_folder/Akm.snp.maf001.LDpruned.A.map
+#modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
+perl $SCRIPT_DIR/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.snp.maf001.LDpruned.map > $plink_folder/Akm.snp.maf001.LDpruned.A.map
 
 plink --noweb --allow-extra-chr -allow-no-sex\
  --ped $plink_folder/Akm.snp.maf001.LDpruned.A.ped\
