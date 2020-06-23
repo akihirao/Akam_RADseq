@@ -19,11 +19,11 @@ module load gatk/4.1.7.0
  
 
 #Convering from vcf to plink ped/map
-vcftools --gzvcf vcf_folder/Akm.ahal.snp.NonExcessHe.vcf.gz\
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf.gz\
  --plink --out $plink_folder/Akm.ahal.snp
 
 #Convering from vcf to plink ped/map
-vcftools --gzvcf vcf_folder/Akm.alyr.snp.NonExcessHe.vcf.gz\
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf.gz\
  --plink --out $plink_folder/Akm.alyr.snp
 
 #Combing H- and L- plink ped/map files

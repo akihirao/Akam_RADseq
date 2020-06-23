@@ -62,7 +62,7 @@ perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_
 #set filtered data without considering linkage disequribrium and minor alleles: H-subgenome
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf\
+ -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.06.bed\
  -O $vcf_folder/Akm.ahal.snp.filter06.vcf
@@ -98,7 +98,7 @@ tabix -p $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 #set filtered data without considering linkage disequribrium and minor alleles: L-subgenome
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
- -V $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf\
+ -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.alyr.06.bed\
  -O $vcf_folder/Akm.alyr.snp.filter06.vcf
@@ -144,7 +144,6 @@ vcftools --gzvcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz\
 
 #modification of FID in plink pedmap (Popxxx -> Pop)
 perl $SCRIPT_DIR/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf001.LDpruned.ped > $plink_folder/Akm.snp.maf001.LDpruned.A.ped
-
 
 #modification of plink map for converting plink raw format
 perl $SCRIPT_DIR/PlinkMAP_modified2A.pl <  $plink_folder/Akm.snp.maf001.LDpruned.map > $plink_folder/Akm.snp.maf001.LDpruned.A.map
