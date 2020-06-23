@@ -14,7 +14,7 @@ open (IN, "POP_ID_list.txt");
 
 while($line=<IN>){
 	chomp $line;
-	($kam_ID, $pop_ID) = split /\s+/,$line;
+	($kam_ID, $pop_ID, $pop) = split /\s+/,$line;
 	$pop_ID_list{$kam_ID} = $pop_ID;
 }
 close(IN);

@@ -1,8 +1,8 @@
 #!/bin/bash
-#Pipe.10.GenotypeFiltering.sh
+#Pipe.11.GenotypeFiltering.sh
 #by HIRAO Akira
 
-SCRIPT_DIR=$(cd $(dirname $0)  && pwd)
+SCRIPT_DIR=$(cd $(dirname $0) && pwd)
 
 module load vcftools/0.1.15
 module load samtools/1.10
@@ -62,7 +62,7 @@ perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_
 #set filtered data without considering linkage disequribrium and minor alleles: H-subgenome
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
+ -V $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.06.bed\
  -O $vcf_folder/Akm.ahal.snp.filter06.vcf
@@ -86,7 +86,7 @@ plink2 --allow-extra-chr\
 perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf001.prune.in > $plink_folder/Akm.ahal.LDpruned.bed
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
+ -V $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.LDpruned.bed\
  -O $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf
@@ -96,12 +96,12 @@ tabix -p $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 
 
 #set filtered data without considering linkage disequribrium and minor alleles: L-subgenome
-gatk SelectVariants \
--R $reference_folder/Alyr_v2_2_1.fa \
--V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz \
---sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args \
--L $plink_folder/Akm.alyr.06.bed \
--O $vcf_folder/Akm.alyr.snp.filter06.vcf
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf\
+ --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.alyr.06.bed\
+ -O $vcf_folder/Akm.alyr.snp.filter06.vcf
 
 #filtering out MAF < 0.01: H-subgenome
 vcftools --vcf $vcf_folder/Akm.alyr.snp.filter06.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
@@ -123,7 +123,7 @@ plink2 --allow-extra-chr\
 perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf001.prune.in > $plink_folder/Akm.alyr.LDpruned.bed
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
- -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
+ -V $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf\
  --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.alyr.LDpruned.bed\
  -O $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf
@@ -141,12 +141,19 @@ tabix -p vcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz
 
 vcftools --gzvcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.snp.maf001.LDpruned
+
+#modification of FID in plink pedmap (Popxxx -> Pop)
+perl $SCRIPT_DIR/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf001.LDpruned.ped > $plink_folder/Akm.snp.maf001.LDpruned.A.ped
+
+
+#modification of plink map for converting plink raw format
+perl $SCRIPT_DIR/PlinkMAP_modified2A.pl <  $plink_folder/Akm.snp.maf001.LDpruned.map > $plink_folder/Akm.snp.maf001.LDpruned.A.map
+
 plink --noweb --allow-extra-chr -allow-no-sex\
- --ped $plink_folder/Akm.snp.maf001.LDpruned.ped\
- --map $plink_folder/Akm.snp.maf001.LDpruned.map\
+ --ped $plink_folder/Akm.snp.maf001.LDpruned.A.ped\
+ --map $plink_folder/Akm.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.snp.maf001.LDpruned.A\
  --recodeA --missing
-
 
 #Calculation of genotyping rate for each of filter_xx.ped
 echo $initial_input.ped

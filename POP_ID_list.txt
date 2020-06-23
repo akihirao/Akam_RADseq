@@ -1,312 +1,312 @@
-kam001	Kmi001
-kam002	Shi002
-kam003	Mag003
-kam004	Kso004
-kam005	Kns005
-kam006	Sak006
-kam007	Sym007
-kam008	Nor008
-kam009	Kmi009
-kam010	Shi010
-kam011	Mag011
-kam012	Kso012
-kam013	Kns013
-kam014	Sak014
-kam015	Sym015
-kam016	Nor016
-kam017	Kmi017
-kam018	Shi018
-kam019	Mag019
-kam020	Kso020
-kam021	Kns021
-kam022	Sak022
-kam023	Sym023
-kam024	Nor024
-kam025	Kmi025
-kam026	Shi026
-kam027	Mag027
-kam028	Kso028
-kam029	Kns029
-kam030	Sak030
-kam031	Sym031
-kam032	Nor032
-kam033	Kmi033
-kam034	Shi034
-kam035	Mag035
-kam036	Kso036
-kam037	Kns037
-kam038	Sak038
-kam039	Sym039
-kam040	Nor040
-kam041	Kmi041
-kam042	Shi042
-kam043	Mag043
-kam044	Kso044
-kam045	Kns045
-kam046	Sak046
-kam047	Sym047
-kam048	Nor048
-kam049	Kmi049
-kam050	Shi050
-kam051	Mag051
-kam052	Kso052
-kam053	Kns053
-kam054	Sak054
-kam055	Sym055
-kam056	Nor056
-kam057	Kmi057
-kam058	Shi058
-kam059	Mag059
-kam060	Kso060
-kam061	Kns061
-kam062	Sak062
-kam063	Sym063
-kam064	Nor064
-kam065	Kmi065
-kam066	Shi066
-kam067	Mag067
-kam068	Kso068
-kam069	Kns069
-kam070	Sak070
-kam071	Sym071
-kam072	Nor072
-kam073	Kmi073
-kam074	Shi074
-kam075	Mag075
-kam076	Kns076
-kam077	Kso077
-kam078	Sak078
-kam079	Sym079
-kam080	Nor080
-kam081	Kmi081
-kam082	Shi082
-kam083	Mag083
-kam084	Kns084
-kam085	Kso085
-kam086	Sak086
-kam087	Sym087
-kam088	Nor088
-kam089	Tys089
-kam090	Shi090
-kam091	Tys091
-kam092	Kso092
-kam093	Kns093
-kam094	Sak094
-kam095	Sym095
-kam096	Nor096
-kam101	Ogm101
-kam102	Mid102
-kam103	Nam103
-kam104	Hiz104
-kam105	Ogy105
-kam106	Tyn106
-kam107	Abg107
-kam108	Kma108
-kam109	Ogm109
-kam110	Mid110
-kam111	Nam111
-kam112	Hiz112
-kam113	Ogy113
-kam114	Tyn114
-kam115	Abg115
-kam116	Kma116
-kam117	Ogm117
-kam118	Mid118
-kam119	Nam119
-kam120	Hiz120
-kam121	Ogy121
-kam122	Tyn122
-kam123	Abg123
-kam124	Kma124
-kam125	Ogm125
-kam126	Mid126
-kam127	Nam127
-kam128	Hiz128
-kam129	Ogy129
-kam130	Tyn130
-kam131	Abg131
-kam132	Kma132
-kam133	Ogm133
-kam134	Mid134
-kam135	Nam135
-kam136	Hiz136
-kam137	Ogy137
-kam138	Tyn138
-kam139	Abg139
-kam140	Kma140
-kam141	Ogm141
-kam142	Mid142
-kam143	Nam143
-kam144	Hiz144
-kam145	Ogy145
-kam146	Tyn146
-kam147	Abg147
-kam148	Kma148
-kam149	Ogm149
-kam150	Mid150
-kam151	Nam151
-kam152	Hiz152
-kam153	Ogy153
-kam154	Tyn154
-kam155	Abg155
-kam156	Kma156
-kam157	Ogm157
-kam158	Mid158
-kam159	Nam159
-kam160	Hiz160
-kam161	Ogy161
-kam162	Tyn162
-kam163	Abg163
-kam164	Kma164
-kam165	Ogm165
-kam166	Mid166
-kam167	Nam167
-kam168	Hiz168
-kam169	Ogy169
-kam170	Tyn170
-kam171	Abg171
-kam172	Kma172
-kam173	Ogm173
-kam174	Mid174
-kam175	Nam175
-kam176	Hiz176
-kam177	Ogy177
-kam178	Tyn178
-kam179	Abg179
-kam180	Kma180
-kam181	Ogm181
-kam182	Mid182
-kam183	Nam183
-kam184	Hiz184
-kam185	Ogy185
-kam186	Tyn186
-kam187	Tys187
-kam188	Tys188
-kam189	Ogm189
-kam190	Mid190
-kam191	Nam191
-kam192	Tys192
-kam193	Ogy193
-kam194	Tyn194
-kam195	Tys195
-kam196	Tys196
-kam201	Tdg201
-kam202	Tyg202
-kam203	Hkb203
-kam204	Sen204
-kam205	Shr205
-kam206	Ont206
-kam207	Mur207
-kam208	Tgz208
-kam209	Tdg209
-kam210	Tyg210
-kam211	Hkb211
-kam212	Sen212
-kam213	Shr213
-kam214	Ont214
-kam215	Mur215
-kam216	Tgz216
-kam217	Tdg217
-kam218	Tyg218
-kam219	Hkb219
-kam220	Sen220
-kam221	Shr221
-kam222	Ont222
-kam223	Mur223
-kam224	Tgz224
-kam225	Tdg225
-kam226	Tyg226
-kam227	Hkb227
-kam228	Sen228
-kam229	Shr229
-kam230	Ont230
-kam231	Mur231
-kam232	Tgz232
-kam233	Tdg233
-kam234	Tyg234
-kam235	Hkb235
-kam236	Sen236
-kam237	Shr237
-kam238	Ont238
-kam239	Mur239
-kam240	Tgz240
-kam241	Tdg241
-kam242	Tyg242
-kam243	Hkb243
-kam244	Sen244
-kam245	Shr245
-kam246	Ont246
-kam247	Mur247
-kam248	Tgz248
-kam249	Tdg249
-kam250	Tyg250
-kam251	Hkb251
-kam252	Sen252
-kam253	Shr253
-kam254	Ont254
-kam255	Mur255
-kam256	Tgz256
-kam257	Tdg257
-kam258	Tyg258
-kam259	Hkb259
-kam260	Sen260
-kam261	Shr261
-kam262	Ont262
-kam263	Mur263
-kam264	Tgz264
-kam265	Tdg265
-kam266	Tyg266
-kam267	Hkb267
-kam268	Sen268
-kam269	Shr269
-kam270	Ont270
-kam271	Mur271
-kam272	Tgz272
-kam273	Tdg273
-kam274	Tyg274
-kam275	Hkb275
-kam276	Sen276
-kam277	Shr277
-kam278	Ont278
-kam279	Mur279
-kam280	Tgz280
-kam281	Tdg281
-kam282	Tyg282
-kam283	Hkb283
-kam284	Sen284
-kam285	Shr285
-kam286	Ont286
-kam287	Mur287
-kam288	Tys288
-kam289	Tdg289
-kam290	Tyg290
-kam291	Hkb291
-kam292	Sen292
-kam293	Shr293
-kam294	Ont294
-kam295	Mur295
-kam296	Tys296
-kam301	Odr301
-kam302	Odr302
-kam303	Odr303
-kam304	Odr304
-kam305	Odr305
-kam306	Odr306
-kam307	Odr307
-kam308	Odr308
-kam309	Odr309
-kam310	Odr310
-kam311	Odr311
-kam312	Odr312
-kam313	OTH313
-kam314	OTH314
-kam315	OTH315
-kam316	OTH316
-kam317	OTH317
-kam318	OTH318
-kam319	OTH319
-kam320	OTH320
-kam321	OTH321
-kam322	OTH322
-kam323	OTH323
-kam324	OTH324
+kam001	Kmi001	Kmi
+kam002	Shi002	Shi
+kam003	Mag003	Mag
+kam004	Kso004	Kso
+kam005	Kns005	Kns
+kam006	Sak006	Sak
+kam007	Sym007	Sym
+kam008	Nor008	Nor
+kam009	Kmi009	Kmi
+kam010	Shi010	Shi
+kam011	Mag011	Mag
+kam012	Kso012	Kso
+kam013	Kns013	Kns
+kam014	Sak014	Sak
+kam015	Sym015	Sym
+kam016	Nor016	Nor
+kam017	Kmi017	Kmi
+kam018	Shi018	Shi
+kam019	Mag019	Mag
+kam020	Kso020	Kso
+kam021	Kns021	Kns
+kam022	Sak022	Sak
+kam023	Sym023	Sym
+kam024	Nor024	Nor
+kam025	Kmi025	Kmi
+kam026	Shi026	Shi
+kam027	Mag027	Mag
+kam028	Kso028	Kso
+kam029	Kns029	Kns
+kam030	Sak030	Sak
+kam031	Sym031	Sym
+kam032	Nor032	Nor
+kam033	Kmi033	Kmi
+kam034	Shi034	Shi
+kam035	Mag035	Mag
+kam036	Kso036	Kso
+kam037	Kns037	Kns
+kam038	Sak038	Sak
+kam039	Sym039	Sym
+kam040	Nor040	Nor
+kam041	Kmi041	Kmi
+kam042	Shi042	Shi
+kam043	Mag043	Mag
+kam044	Kso044	Kso
+kam045	Kns045	Kns
+kam046	Sak046	Sak
+kam047	Sym047	Sym
+kam048	Nor048	Nor
+kam049	Kmi049	Kmi
+kam050	Shi050	Shi
+kam051	Mag051	Mag
+kam052	Kso052	Kso
+kam053	Kns053	Kns
+kam054	Sak054	Sak
+kam055	Sym055	Sym
+kam056	Nor056	Nor
+kam057	Kmi057	Kmi
+kam058	Shi058	Shi
+kam059	Mag059	Mag
+kam060	Kso060	Kso
+kam061	Kns061	Kns
+kam062	Sak062	Sak
+kam063	Sym063	Sym
+kam064	Nor064	Nor
+kam065	Kmi065	Kmi
+kam066	Shi066	Shi
+kam067	Mag067	Mag
+kam068	Kso068	Kso
+kam069	Kns069	Kns
+kam070	Sak070	Sak
+kam071	Sym071	Sym
+kam072	Nor072	Nor
+kam073	Kmi073	Kmi
+kam074	Shi074	Shi
+kam075	Mag075	Mag
+kam076	Kns076	Kns
+kam077	Kso077	Kso
+kam078	Sak078	Sak
+kam079	Sym079	Sym
+kam080	Nor080	Nor
+kam081	Kmi081	Kmi
+kam082	Shi082	Shi
+kam083	Mag083	Mag
+kam084	Kns084	Kns
+kam085	Kso085	Kso
+kam086	Sak086	Sak
+kam087	Sym087	Sym
+kam088	Nor088	Nor
+kam089	Tys089	Tys
+kam090	Shi090	Shi
+kam091	Tys091	Tys
+kam092	Kso092	Kso
+kam093	Kns093	Kns
+kam094	Sak094	Sak
+kam095	Sym095	Sym
+kam096	Nor096	Nor
+kam101	Ogm101	Ogm
+kam102	Mid102	Mid
+kam103	Nam103	Nam
+kam104	Hiz104	Hiz
+kam105	Ogy105	Ogy
+kam106	Tyn106	Tyn
+kam107	Abg107	Abg
+kam108	Kma108	Kma
+kam109	Ogm109	Ogm
+kam110	Mid110	Mid
+kam111	Nam111	Nam
+kam112	Hiz112	Hiz
+kam113	Ogy113	Ogy
+kam114	Tyn114	Tyn
+kam115	Abg115	Abg
+kam116	Kma116	Kma
+kam117	Ogm117	Ogm
+kam118	Mid118	Mid
+kam119	Nam119	Nam
+kam120	Hiz120	Hiz
+kam121	Ogy121	Ogy
+kam122	Tyn122	Tyn
+kam123	Abg123	Abg
+kam124	Kma124	Kma
+kam125	Ogm125	Ogm
+kam126	Mid126	Mid
+kam127	Nam127	Nam
+kam128	Hiz128	Hiz
+kam129	Ogy129	Ogy
+kam130	Tyn130	Tyn
+kam131	Abg131	Abg
+kam132	Kma132	Kma
+kam133	Ogm133	Ogm
+kam134	Mid134	Mid
+kam135	Nam135	Nam
+kam136	Hiz136	Hiz
+kam137	Ogy137	Ogy
+kam138	Tyn138	Tyn
+kam139	Abg139	Abg
+kam140	Kma140	Kma
+kam141	Ogm141	Ogm
+kam142	Mid142	Mid
+kam143	Nam143	Nam
+kam144	Hiz144	Hiz
+kam145	Ogy145	Ogy
+kam146	Tyn146	Tyn
+kam147	Abg147	Abg
+kam148	Kma148	Kma
+kam149	Ogm149	Ogm
+kam150	Mid150	Mid
+kam151	Nam151	Nam
+kam152	Hiz152	Hiz
+kam153	Ogy153	Ogy
+kam154	Tyn154	Tyn
+kam155	Abg155	Abg
+kam156	Kma156	Kma
+kam157	Ogm157	Ogm
+kam158	Mid158	Mid
+kam159	Nam159	Nam
+kam160	Hiz160	Hiz
+kam161	Ogy161	Ogy
+kam162	Tyn162	Tyn
+kam163	Abg163	Abg
+kam164	Kma164	Kma
+kam165	Ogm165	Ogm
+kam166	Mid166	Mid
+kam167	Nam167	Nam
+kam168	Hiz168	Hiz
+kam169	Ogy169	Ogy
+kam170	Tyn170	Tyn
+kam171	Abg171	Abg
+kam172	Kma172	Kma
+kam173	Ogm173	Ogm
+kam174	Mid174	Mid
+kam175	Nam175	Nam
+kam176	Hiz176	Hiz
+kam177	Ogy177	Ogy
+kam178	Tyn178	Tyn
+kam179	Abg179	Abg
+kam180	Kma180	Kma
+kam181	Ogm181	Ogm
+kam182	Mid182	Mid
+kam183	Nam183	Nam
+kam184	Hiz184	Hiz
+kam185	Ogy185	Ogy
+kam186	Tyn186	Tyn
+kam187	Tys187	Tys
+kam188	Tys188	Tys
+kam189	Ogm189	Ogm
+kam190	Mid190	Mid
+kam191	Nam191	Nam
+kam192	Tys192	Tys
+kam193	Ogy193	Ogy
+kam194	Tyn194	Tyn
+kam195	Tys195	Tys
+kam196	Tys196	Tys
+kam201	Tdg201	Tdg
+kam202	Tyg202	Tyg
+kam203	Hkb203	Hkb
+kam204	Sen204	Sen
+kam205	Shr205	Shr
+kam206	Ont206	Ont
+kam207	Mur207	Mur
+kam208	Tgz208	Tgz
+kam209	Tdg209	Tdg
+kam210	Tyg210	Tyg
+kam211	Hkb211	Hkb
+kam212	Sen212	Sen
+kam213	Shr213	Shr
+kam214	Ont214	Ont
+kam215	Mur215	Mur
+kam216	Tgz216	Tgz
+kam217	Tdg217	Tdg
+kam218	Tyg218	Tyg
+kam219	Hkb219	Hkb
+kam220	Sen220	Sen
+kam221	Shr221	Shr
+kam222	Ont222	Ont
+kam223	Mur223	Mur
+kam224	Tgz224	Tgz
+kam225	Tdg225	Tdg
+kam226	Tyg226	Tyg
+kam227	Hkb227	Hkb
+kam228	Sen228	Sen
+kam229	Shr229	Shr
+kam230	Ont230	Ont
+kam231	Mur231	Mur
+kam232	Tgz232	Tgz
+kam233	Tdg233	Tdg
+kam234	Tyg234	Tyg
+kam235	Hkb235	Hkb
+kam236	Sen236	Sen
+kam237	Shr237	Shr
+kam238	Ont238	Ont
+kam239	Mur239	Mur
+kam240	Tgz240	Tgz
+kam241	Tdg241	Tdg
+kam242	Tyg242	Tyg
+kam243	Hkb243	Hkb
+kam244	Sen244	Sen
+kam245	Shr245	Shr
+kam246	Ont246	Ont
+kam247	Mur247	Mur
+kam248	Tgz248	Tgz
+kam249	Tdg249	Tdg
+kam250	Tyg250	Tyg
+kam251	Hkb251	Hkb
+kam252	Sen252	Sen
+kam253	Shr253	Shr
+kam254	Ont254	Ont
+kam255	Mur255	Mur
+kam256	Tgz256	Tgz
+kam257	Tdg257	Tdg
+kam258	Tyg258	Tyg
+kam259	Hkb259	Hkb
+kam260	Sen260	Sen
+kam261	Shr261	Shr
+kam262	Ont262	Ont
+kam263	Mur263	Mur
+kam264	Tgz264	Tgz
+kam265	Tdg265	Tdg
+kam266	Tyg266	Tyg
+kam267	Hkb267	Hkb
+kam268	Sen268	Sen
+kam269	Shr269	Shr
+kam270	Ont270	Ont
+kam271	Mur271	Mur
+kam272	Tgz272	Tgz
+kam273	Tdg273	Tdg
+kam274	Tyg274	Tyg
+kam275	Hkb275	Hkb
+kam276	Sen276	Sen
+kam277	Shr277	Shr
+kam278	Ont278	Ont
+kam279	Mur279	Mur
+kam280	Tgz280	Tgz
+kam281	Tdg281	Tdg
+kam282	Tyg282	Tyg
+kam283	Hkb283	Hkb
+kam284	Sen284	Sen
+kam285	Shr285	Shr
+kam286	Ont286	Ont
+kam287	Mur287	Mur
+kam288	Tys288	Tys
+kam289	Tdg289	Tdg
+kam290	Tyg290	Tyg
+kam291	Hkb291	Hkb
+kam292	Sen292	Sen
+kam293	Shr293	Shr
+kam294	Ont294	Ont
+kam295	Mur295	Mur
+kam296	Tys296	Tys
+kam301	Odr301	Odr
+kam302	Odr302	Odr
+kam303	Odr303	Odr
+kam304	Odr304	Odr
+kam305	Odr305	Odr
+kam306	Odr306	Odr
+kam307	Odr307	Odr
+kam308	Odr308	Odr
+kam309	Odr309	Odr
+kam310	Odr310	Odr
+kam311	Odr311	Odr
+kam312	Odr312	Odr
+kam313	OTH313	OTH
+kam314	OTH314	OTH
+kam315	OTH315	OTH
+kam316	OTH316	OTH
+kam317	OTH317	OTH
+kam318	OTH318	OTH
+kam319	OTH319	OTH
+kam320	OTH320	OTH
+kam321	OTH321	OTH
+kam322	OTH322	OTH
+kam323	OTH323	OTH
+kam324	OTH324	OTH

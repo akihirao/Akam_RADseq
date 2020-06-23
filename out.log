@@ -1,0 +1,17 @@
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf /zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk/vcf_out/Akm.alyr.snp.lab_edit.vcf.gz
+	--recode-INFO-all
+	--recode
+	--stdout
+	--exclude-bed /zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk/vcf_out/Akm.alyr.ExcessHe.bed
+
+Using zlib version: 1.2.7
+After filtering, kept 282 out of 282 Individuals
+Outputting VCF file...
+	Read 363 BED file entries.
+After filtering, kept 33281 out of a possible 33643 Sites
+Run Time = 38.00 seconds
