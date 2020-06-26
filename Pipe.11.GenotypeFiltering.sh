@@ -94,7 +94,7 @@ gatk SelectVariants\
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 tabix -p $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 
-#output L-subgenome plink ped/bed format 
+#output H-subgenome plink ped/bed format 
 #************************************************************************************
 vcftools --gzvcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.ahal.snp.maf001.LDpruned
@@ -103,9 +103,14 @@ perl $SCRIPT_DIR/PED_FID_lab_edit.pl <  $plink_folder/Akm.ahal.snp.maf001.LDprun
 #modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
 perl $SCRIPT_DIR/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.ahal.snp.maf001.LDpruned.map > $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map
 plink --noweb --allow-extra-chr -allow-no-sex\
- --ped $plink_folder/Akm.ahal.snp.maf001.LDpruned.ped\
- --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.map\
- --out $plink_folder/Akm.ahal.snp.maf001.LDpruned\
+ --ped $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.ped\
+ --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map\
+ --out $plink_folder/Akm.ahal.snp.maf001.LDpruned.A\
+ --recodeA --missing
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.ped\
+ --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map\
+ --out $plink_folder/Akm.ahal.snp.maf001.LDpruned.A\
  --make-bed
 #************************************************************************************
 
@@ -157,9 +162,14 @@ perl $SCRIPT_DIR/PED_FID_lab_edit.pl <  $plink_folder/Akm.alyr.snp.maf001.LDprun
 #modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
 perl $SCRIPT_DIR/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.alyr.snp.maf001.LDpruned.map > $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.map
 plink --noweb --allow-extra-chr -allow-no-sex\
- --ped $plink_folder/Akm.alyr.snp.maf001.LDpruned.ped\
- --map $plink_folder/Akm.alyr.snp.maf001.LDpruned.map\
- --out $plink_folder/Akm.alyr.snp.maf001.LDpruned\
+ --ped $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.ped\
+ --map $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.map\
+ --out $plink_folder/Akm.alyr.snp.maf001.LDpruned.A\
+ --recodeA --missing
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.ped\
+ --map $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.map\
+ --out $plink_folder/Akm.alyr.snp.maf001.LDpruned.A\
  --make-bed
 #************************************************************************************
 
