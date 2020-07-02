@@ -18,7 +18,6 @@ module load vcftools/0.1.15
 module load gatk/4.1.7.0
  
 
-
 #Edting sample name to replace individual_ID with Pop_ID + individual_ID: H-homeologs
 perl $SCRIPT_DIR/vcf_lab_change.pl < $vcf_folder/Akm.ahal.snp.DPfilterNoCall.vcf > $vcf_folder/Akm.ahal.snp.lab_edit.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.lab_edit.vcf > $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz
@@ -63,14 +62,15 @@ while read Pop; do
 
 done < $SCRIPT_DIR/pop_list.txt #list of 25 populations 
 
+
 cd $SCRIPT_DIR
 
 
 cat $vcf_folder/Akm.ahal.ExcessHe.list.txt | sort | uniq > $vcf_folder/Akm.ahal.ExcessHe.unique.list.txt
 cat $vcf_folder/Akm.alyr.ExcessHe.list.txt | sort | uniq > $vcf_folder/Akm.alyr.ExcessHe.unique.list.txt
 
-perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.ahal.ExcessHe.unique.list.txt | sort -n -t "_" -k 5 -k 2,2 > $vcf_folder/Akm.ahal.ExcessHe.bed
-perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.alyr.ExcessHe.unique.list.txt | sort -n -t "_" -k 5 -k 2,2 > $vcf_folder/Akm.alyr.ExcessHe.bed
+perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.ahal.ExcessHe.unique.list.txt | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $vcf_folder/Akm.ahal.ExcessHe.bed
+perl $SCRIPT_DIR/LDpruned2BED.pl < $vcf_folder/Akm.alyr.ExcessHe.unique.list.txt | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $vcf_folder/Akm.alyr.ExcessHe.bed
 
 
 #filtering out ExcessHe sites: H-homeologs

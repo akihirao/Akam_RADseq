@@ -14,4 +14,4 @@ After filtering, kept 282 out of 282 Individuals
 Outputting VCF file...
 	Read 361 BED file entries.
 After filtering, kept 33283 out of a possible 33643 Sites
-Run Time = 41.00 seconds
+Run Time = 35.00 seconds
