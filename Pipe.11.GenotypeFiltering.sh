@@ -51,8 +51,8 @@ plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_05 --mind 0.6 
 
 
 perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06.map > $plink_folder/$output.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed | sort -n -t "_" -k 5 -k 2,2  > $plink_folder/$output.ahal.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed | sort -n -t "_" -k 5 -k 2,2  > $plink_folder/$output.alyr.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$output.ahal.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$output.alyr.$lab_06.bed
 
 #extracting ID from final.ped
 perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
