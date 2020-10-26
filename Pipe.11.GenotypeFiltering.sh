@@ -240,6 +240,10 @@ echo Akm.snp.maf001.LDpruned.ped
 perl $SCRIPT_DIR/Calc.GenotypingRatePed_total.pl < Akm.snp.maf001.LDpruned.ped
 
 
+
+#conversion from map to bed (position bed)
+perl $SCRIPT_DIR//MAP2BED.pl < Akm.snp.maf001.LDpruned.map > Akm.snp.maf001.LDpruned.map.bed
+
 cd $SCRIPT_DIR
 
 
