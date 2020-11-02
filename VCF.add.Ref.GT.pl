@@ -38,7 +38,7 @@ while($line = <>){
   
   }elsif($line =~ /^#CHROM/m){
     ($CHROM , $POS, $ID, $REF, $ALT, $QUAL, $FILTER, $INFO, $FORMAT, @sample) = split (/\s+/,$line);
-    unshift @sample, "AHAL";
+    unshift @sample, "Ref";
     $last_sample = pop(@sample);
 
     print $CHROM, "\t", $POS, "\t", $ID, "\t", $REF, "\t", $ALT, "\t", $QUAL, "\t", $FILTER, "\t", $INFO, "\t", $FORMAT, "\t";
