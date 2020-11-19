@@ -33,7 +33,7 @@ echo $ExcessHet_param
 echo $ExcessHet_param_under
 
 
-<< COMMENTOUT1
+
 
 #========================================================================
 #H-subgenome
@@ -96,9 +96,14 @@ gatk SelectVariants\
  -O Akm.ahal.nonvariable.NoExHet.ForPi.vcf.gz
 
 gunzip -c Akm.ahal.nonvariable.NoExHet.ForPi.vcf.gz > Akm.ahal.nonvariable.NoExHet.ForPi.vcf
+
+perl $SCRIPT_DIR/vcf_lab_change.pl < Akm.ahal.nonvariable.NoExHet.ForPi.vcf > Akm.ahal.nonvariable.NoExHet.ForPi.lab_edited.vcf
+bgzip -c Akm.ahal.nonvariable.NoExHet.ForPi.lab_edited.vcf > Akm.ahal.nonvariable.NoExHet.ForPi.lab_edited.vcf.gz
+tabix -p vcf Akm.ahal.nonvariable.NoExHet.ForPi.lab_edited.vcf.gz
+
 #========================================================================
 
-COMMENTOUT1
+
 
 
 #========================================================================
@@ -162,6 +167,12 @@ gatk SelectVariants\
  -O Akm.alyr.nonvariable.NoExHet.ForPi.vcf.gz
 
 gunzip -c Akm.alyr.nonvariable.NoExHet.ForPi.vcf.gz > Akm.alyr.nonvariable.NoExHet.ForPi.vcf
+
+perl $SCRIPT_DIR/vcf_lab_change.pl < Akm.alyr.nonvariable.NoExHet.ForPi.vcf > Akm.alyr.nonvariable.NoExHet.ForPi.lab_edited.vcf
+bgzip -c Akm.alyr.nonvariable.NoExHet.ForPi.lab_edited.vcf > Akm.alyr.nonvariable.NoExHet.ForPi.lab_edited.vcf.gz
+tabix -p vcf Akm.alyr.nonvariable.NoExHet.ForPi.lab_edited.vcf.gz
+
+
 #========================================================================
 
 
