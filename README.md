@@ -22,6 +22,9 @@ Briskine, R. V. et al. (2016) Genome assembly and annotation of <i>Arabidopsis h
 Paape T. et al. (2018) Patterns of polymorphism and selection in the subgenomes of the allopolyploid <i>Arabidopsis kamchatica</i>. Nature communications. 9(1):3909. https://doi.org/10.1038/s41467-018-06108-1
 
 
+## The sequencing data
+The raw sequencing data analyzed were deposited into the DNA Data Bank of Japan Sequence Read Archive with the accession number DRA012219.
+
 ## Flowchart
  
 <p align="left">
