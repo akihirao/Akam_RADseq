@@ -5,12 +5,12 @@ Bioinformatics pipeline for SNPs calling workflow for RAD-seq analysis of <i>Ara
 
 ## Requirement
 
-* samtools: Tools for manipulating NGS data (https://github.com/samtools/samtools)
-* vcftools: A set of tools for working with VCF files (https://github.com/vcftools/vcftools)
-* BWA: Burrow-Wheeler Aligner (http://bio-bwa.sourceforge.net) 
-* GATK: Genome Analysis Toolkit (https://gatk.broadinstitute.org/)
-* EAGLE: Explicit Alternative Genome Likelihood Evaluator (https://github.com/tony-kuo/eagle)
-* Plink: Whole-genome association analysis tool (https://www.cog-genomics.org/plink/)
+* samtools: Tools for manipulating NGS data https://github.com/samtools/samtools
+* vcftools: A set of tools for working with VCF files https://github.com/vcftools/vcftools
+* BWA: Burrow-Wheeler Aligner http://bio-bwa.sourceforge.net
+* GATK: Genome Analysis Toolkit https://gatk.broadinstitute.org/
+* EAGLE: Explicit Alternative Genome Likelihood Evaluator https://github.com/tony-kuo/eagle
+* Plink: Whole-genome association analysis tool https://www.cog-genomics.org/plink/
 
 The environments under Ubuntu 18.04 and/or CentOS 7.5 are tested. The versions of the tools used are documented in a series of shell scripts.
 
@@ -40,10 +40,14 @@ Pipe.01.BWA_mapping.sh
 Pipe.02.eagle_rc.sh
 Pipe.03.BamFiltering.sh
 ...
-Pipe.10.GenotypeFiltering.sh
+Pipe.11.GenotypeFiltering.sh
 ```
 
+## Within easySFS/:
+This directory contains the execute shell script for conversion from VCF into site frequency spectrum (SFS) using easySFS.
 
+## Within fsc/:
+This directory contains the input files and execute shell scripts for demographic modeling using the fastsimcoal2 program.
 
 ## Note
 This project is currently under development. Thank you!

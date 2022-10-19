@@ -1,15 +1,17 @@
 #!/bin/bash
 #Vcf2SFS.easySFS.sh 
-#easySFS: https://github.com/isaacovercast/easySFS
-# Pop_ID.txt: the population assignment file
+#by Akira HIRAO
+
+#Requirement
+##easySFS: https://github.com/isaacovercast/easySFS
+## Pop_ID.txt: the population assignment file
 
 CURRENT_DIR=$(cd $(dirname $0) && pwd)
 
-reference_folder=/zfs/Akm/data/Reference/Ahal_Alyr_v2_2_1/eagle
-plink_folder=$main_folder/plink_filtering
-vcf_folder=$main_folder/vcf_out
+main_folder=/home/$USER/work/Akm
 easySFS_folder=$main_folder/easySFS_out
 
+mkdir -p $easySFS_folder
 cd $easySFS_folder
 
 ## Vcf samples including singleton
