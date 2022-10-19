@@ -1,0 +1,19 @@
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1  N_POP0       unif     100    1e5   output
+1  N_POP1       unif     100    1e5   output
+1  N_POP2       unif     100    1e5   output
+1  N_ANC10      unif     100    1e5   output
+1  N_ANCAll     unif     100    1e5   output
+1  TDIV_10       unif     10    5e5   output
+1  TPLUS      unif     10    5e5   hide
+
+
+[COMPLEX PARAMETERS]
+1  TDIV_ANC = TDIV_10+TPLUS  output
+0  RESIZE_10 = N_ANC10/N_POP0      hide
+0  RESIZE_ANC = N_ANCAll/N_POP2    hide
