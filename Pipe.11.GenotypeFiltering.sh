@@ -67,8 +67,62 @@ gatk SelectVariants\
  -L $plink_folder/Akm.ahal.06.bed\
  -O $vcf_folder/Akm.ahal.snp.filter06.vcf
 
+#Setting samples including singleton: H-subgenome
+cp $vcf_folder/Akm.ahal.snp.filter06.vcf $vcf_folder/Akm.ahal.snp.singleton.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.singleton.vcf > $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
+
+#...................................
+#LD-pruning for including singleton: H-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.ahal.snp.singleton.LD
+
+#convert from LD-prune.in to BED: H-subgenome
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.singleton.LD.prune.in > $plink_folder/Akm.ahal.snp.singleton.LDpruned.bed
+
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.singleton.vcf.gz\
+ -L $plink_folder/Akm.ahal.snp.non_singleton.LDpruned.bed\
+ -O $vcf_folder/Akm.ahal.snp.singleton.LDpruned.vcf.gz
+
+gunzip -d -k $vcf_folder/Akm.ahal.snp.singleton.LDpruned.vcf.gz
+# To convert to SFS with using easySFS: H-subgenome
+#...................................
+
+#Setting samples excluding singleton: H-subgenome
+vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --singletons --stdout > $vcf_folder/Akm.ahal.snp.filter06.singletons.txt
+perl $script_folder/Singletons2BED.pl < $vcf_folder/Akm.ahal.snp.filter06.singletons.txt > $plink_folder/Akm.ahal.snp.filter06.singletons.bed
+
+vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.ahal.snp.filter06.singletons.bed > $vcf_folder/Akm.ahal.snp.non_singleton.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.non_singleton.vcf > $vcf_folder/Akm.ahal.snp.non_singleton.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.non_singleton.vcf.gz
+
+#...................................
+#LD-pruning for non_singleton: H-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.ahal.snp.non_singleton.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.ahal.snp.non_singleton
+
+#convert from LD-prune.in to BED: H-subgenome
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.non_singleton.prune.in > $plink_folder/Akm.ahal.snp.non_singleton.LDpruned.bed
+
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.non_singleton.vcf.gz\
+ -L $plink_folder/Akm.ahal.snp.non_singleton.LDpruned.bed\
+ -O $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz
+
+gunzip -d -k $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz 
+# To convert to SFS with using easySFS: H-subgenome
+#...................................
+
+
 #filtering out MAF < 0.01: H-subgenome
-vcftools --vcf $vcf_folder/Akm.ahal.snp.filter06.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
+vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.vcf > $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 tabix -p $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 
@@ -125,8 +179,63 @@ gatk SelectVariants\
  -L $plink_folder/Akm.alyr.06.bed\
  -O $vcf_folder/Akm.alyr.snp.filter06.vcf
 
-#filtering out MAF < 0.01: H-subgenome
-vcftools --vcf $vcf_folder/Akm.alyr.snp.filter06.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
+#Setting samples including singleton: L-subgenome
+cp $vcf_folder/Akm.alyr.snp.filter06.vcf $vcf_folder/Akm.alyr.snp.singleton.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.singleton.vcf > $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
+tabix -p vcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
+
+#...................................
+#LD-pruning for including singleton: L-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.alyr.snp.singleton.LD
+
+#convert from LD-prune.in to BED: L-subgenome
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.singleton.LD.prune.in > $plink_folder/Akm.alyr.snp.singleton.LDpruned.bed
+
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.singleton.vcf.gz\
+ -L $plink_folder/Akm.alyr.snp.non_singleton.LDpruned.bed\
+ -O $vcf_folder/Akm.alyr.snp.singleton.LDpruned.vcf.gz
+
+gunzip -d -k $vcf_folder/Akm.alyr.snp.singleton.LDpruned.vcf.gz
+# To convert to SFS with using easySFS: L-subgenome
+#...................................
+
+#Setting samples excluding singleton: L-subgenome
+vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --singletons --stdout > $vcf_folder/Akm.alyr.snp.filter06.singletons.txt
+perl $script_folder/Singletons2BED.pl < $vcf_folder/Akm.alyr.snp.filter06.singletons.txt > $plink_folder/Akm.alyr.snp.filter06.singletons.bed
+
+vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.alyr.snp.filter06.singletons.bed > $vcf_folder/Akm.alyr.snp.non_singleton.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.non_singleton.vcf > $vcf_folder/Akm.alyr.snp.non_singleton.vcf.gz
+tabix -p vcf $vcf_folder/Akm.alyr.snp.non_singleton.vcf.gz
+
+#...................................
+#LD-pruning for non_singleton: L-subgenome
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.alyr.snp.non_singleton.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.alyr.snp.non_singleton
+
+#convert from LD-prune.in to BED: L-subgenome
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.non_singleton.prune.in > $plink_folder/Akm.alyr.snp.non_singleton.LDpruned.bed
+
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.non_singleton.vcf.gz\
+ -L $plink_folder/Akm.alyr.snp.non_singleton.LDpruned.bed\
+ -O $vcf_folder/Akm.alyr.snp.non_singleton.LDpruned.vcf.gz
+
+gunzip -d -k $vcf_folder/Akm.alyr.snp.non_singleton.LDpruned.vcf.gz 
+# To convert to SFS with using easySFS: L-subgenome
+#...................................
+
+
+
+#filtering out MAF < 0.01: L-subgenome
+vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
 bgzip -c $vcf_folder/Akm.alyr.snp.maf001.vcf > $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 tabix -p $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 
@@ -177,6 +286,9 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 #--------------------------------------------------------------------------------------------------------------------
 
 #Combing H- and L- plink ped/map files 06maf001
+vcf-concat $vcf_folder/Akm.ahal.snp.singleton.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.singleton.LDpruned.vcf.gz > $vcf_folder/Akm.snp.singleton.LDpruned.vcf
+vcf-concat $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.non_singleton.LDpruned.vcf.gz > $vcf_folder/Akm.snp.non_singleton.LDpruned.vcf
+
 plink --file $plink_folder/Akm.ahal.06maf001 --merge $plink_folder/Akm.alyr.06maf001.ped $plink_folder/Akm.alyr.06maf001.map --recode --out $plink_folder/Akm.06.maf001
 
 vcf-concat $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz > $vcf_folder/Akm.snp.maf001.LDpruned.vcf
