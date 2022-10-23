@@ -1,4 +1,4 @@
-Label	Group	Pop	Latitude	Longitude
+ID	Cluster	Population	Latitude	Longitude
 Abg107	S_Al	Abg	35.2929275	138.3364425
 Abg115	S_Al	Abg	35.2929275	138.3364425
 Abg123	S_Al	Abg	35.2929275	138.3364425

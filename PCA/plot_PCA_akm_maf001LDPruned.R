@@ -14,36 +14,37 @@ Alyr_vcf <- vcfR::read.vcfR("Akm.alyr.snp.maf001.LDpruned.vcf.gz")
 
 
 #Read the ID data into R
-Pop_ID <- read.table("ID_Pop.txt", header = FALSE)
-colnames(Pop_ID) <- c("ID","Pop")
+ID_Pop <- read_table("ID_Pop.txt")
+ID_Pop_sorted_latitude <- ID_Pop %>% arrange(desc(Latitude),ID)
+ID_Pop$Population <- factor(ID_Pop$Population, levels=unique(ID_Pop_sorted_latitude$Population))
 
 #Convert to genind
 Akm_genind <- vcfR2genind(Akm_vcf)
-pop(Akm_genind) <- Pop_ID$Pop
+pop(Akm_genind) <- Pop_ID$Population
 no_pop <- length(unique(pop(Akm_genind)))
 Akm_id <- indNames(Akm_genind)
 
 Ahal_genind <- vcfR2genind(Ahal_vcf)
-pop(Ahal_genind) <- Pop_ID$Pop
+pop(Ahal_genind) <- Pop_ID$Population
 Ahal_id <- indNames(Ahal_genind)
 
 Alyr_genind <- vcfR2genind(Alyr_vcf)
-pop(Alyr_genind) <- Pop_ID$Pop
+pop(Alyr_genind) <- Pop_ID$Population
 Alyr_id <- indNames(Alyr_genind)
 
 
 #Convert to genlight
 Akm_gl <- vcfR2genlight(Akm_vcf)
 ploidy(Akm_gl) <- 2
-pop(Akm_gl) <- Pop_ID$Pop
+pop(Akm_gl) <- Pop_ID$Population
 
 Ahal_gl <- vcfR2genlight(Ahal_vcf)
 ploidy(Ahal_gl) <- 2
-pop(Ahal_gl) <- Pop_ID$Pop
+pop(Ahal_gl) <- Pop_ID$Population
 
 Alyr_gl <- vcfR2genlight(Alyr_vcf)
 ploidy(Alyr_gl) <- 2
-pop(Alyr_gl) <- Pop_ID$Pop
+pop(Alyr_gl) <- Pop_ID$Population
 
 
 #glPlot(Akm_gl)
@@ -53,71 +54,111 @@ pop(Alyr_gl) <- Pop_ID$Pop
 Akm_gl_pca <- glPca(Akm_gl, nf = 20, n.cores= 4)
 Akm_PC1_contribute <- round(100*Akm_gl_pca$eig[1]/sum(Akm_gl_pca$eig),digits=1)
 Akm_PC2_contribute <- round(100*Akm_gl_pca$eig[2]/sum(Akm_gl_pca$eig),digits=1)
+Akm_PC3_contribute <- round(100*Akm_gl_pca$eig[3]/sum(Akm_gl_pca$eig),digits=1)
 Akm_PC1_contribute_lab <- str_c("PC1"," (",Akm_PC1_contribute,"%)")
 Akm_PC2_contribute_lab <- str_c("PC2"," (",Akm_PC2_contribute,"%)")
+Akm_PC3_contribute_lab <- str_c("PC3"," (",Akm_PC3_contribute,"%)")
 
 Ahal_gl_pca <- glPca(Ahal_gl, nf = 20, n.cores= 4)
 Ahal_PC1_contribute <- round(100*Ahal_gl_pca$eig[1]/sum(Ahal_gl_pca$eig),digits=1)
 Ahal_PC2_contribute <- round(100*Ahal_gl_pca$eig[2]/sum(Ahal_gl_pca$eig),digits=1)
+Ahal_PC3_contribute <- round(100*Ahal_gl_pca$eig[3]/sum(Ahal_gl_pca$eig),digits=1)
 Ahal_PC1_contribute_lab <- str_c("PC1"," (",Ahal_PC1_contribute,"%)")
 Ahal_PC2_contribute_lab <- str_c("PC2"," (",Ahal_PC2_contribute,"%)")
+Ahal_PC3_contribute_lab <- str_c("PC3"," (",Ahal_PC3_contribute,"%)")
 
 Alyr_gl_pca <- glPca(Alyr_gl, nf = 20, n.cores= 4)
 Alyr_PC1_contribute <- round(100*Alyr_gl_pca$eig[1]/sum(Alyr_gl_pca$eig),digits=1)
 Alyr_PC2_contribute <- round(100*Alyr_gl_pca$eig[2]/sum(Alyr_gl_pca$eig),digits=1)
+Alyr_PC3_contribute <- round(100*Alyr_gl_pca$eig[3]/sum(Alyr_gl_pca$eig),digits=1)
 Alyr_PC1_contribute_lab <- str_c("PC1"," (",Alyr_PC1_contribute,"%)")
 Alyr_PC2_contribute_lab <- str_c("PC2"," (",Alyr_PC2_contribute,"%)")
+Alyr_PC3_contribute_lab <- str_c("PC3"," (",Alyr_PC3_contribute,"%)")
+
 
 Akm_gl_pca_scores <- as.data.frame(Akm_gl_pca$scores)
-Akm_gl_pca_scores$pop <- pop(Akm_gl)
+Akm_gl_pca_scores$Population <- pop(Akm_gl)
+Akm_gl_pca_scores$Population <- factor(Akm_gl_pca_scores$Population, levels=unique(ID_Pop_sorted_latitude$Population))
 
 Ahal_gl_pca_scores <- as.data.frame(Ahal_gl_pca$scores)
-Ahal_gl_pca_scores$pop <- pop(Ahal_gl)
+Ahal_gl_pca_scores$Population <- pop(Ahal_gl)
+Ahal_gl_pca_scores$Population <- factor(Ahal_gl_pca_scores$Population, levels=unique(ID_Pop_sorted_latitude$Population))
 
 Alyr_gl_pca_scores <- as.data.frame(Alyr_gl_pca$scores)
-Alyr_gl_pca_scores$pop <- pop(Alyr_gl)
+Alyr_gl_pca_scores$Population <- pop(Alyr_gl)
+Alyr_gl_pca_scores$Population <- factor(Alyr_gl_pca_scores$Population, levels=unique(ID_Pop_sorted_latitude$Population))
 
 
-Akm_gl_PCA_plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC2, colour=pop)) + 
-  ggtitle("Both homeologs combined") + 
+Akm_gl_PCA12_Plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC2, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis kamchatica allopolyploid-genome") + 
   xlab(Akm_PC1_contribute_lab) + ylab(Akm_PC2_contribute_lab) +
-  geom_point(alpha=0.5, size=0.5) + 
-  stat_ellipse(level = 0.95, size = 0.5) + 
-  geom_hline(yintercept = 0) + 
-  geom_vline(xintercept = 0) + 
-  theme_bw()
-
-Akm_gl_PCA_plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC2, colour=pop)) + 
-  ggtitle("Arabidopsis kamchatica as allopolyploid") + 
-  xlab(Akm_PC1_contribute_lab) + ylab(Akm_PC2_contribute_lab) +
-  geom_point(alpha=0.5, size=0.8) + 
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
   stat_ellipse(level = 0.95, size = 0.3) + 
   geom_hline(yintercept = 0) + 
   geom_vline(xintercept = 0) + 
   theme_bw()
 
-Ahal_gl_PCA_plot <- ggplot(Ahal_gl_pca_scores, aes(x=PC1, y=PC2, colour=pop)) + 
-  ggtitle("Arabidopsis halleri homeologs") + 
+Akm_gl_PCA13_Plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC3, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis kamchatica allopolyploid-genome") + 
+  xlab(Akm_PC1_contribute_lab) + ylab(Akm_PC3_contribute_lab) +
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
+  stat_ellipse(level = 0.95, size = 0.3) + 
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw()
+
+
+Ahal_gl_PCA12_plot <- ggplot(Ahal_gl_pca_scores, aes(x=PC1, y=PC2, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis halleri subgenome") + 
   xlab(Ahal_PC1_contribute_lab) + ylab(Ahal_PC2_contribute_lab) +
-  geom_point(alpha=0.5, size=0.8) + 
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
   stat_ellipse(level = 0.95, size = 0.3) + 
   geom_hline(yintercept = 0) + 
   geom_vline(xintercept = 0) + 
   theme_bw()
 
-Alyr_gl_PCA_plot <- ggplot(Alyr_gl_pca_scores, aes(x=PC1, y=PC2, colour=pop)) + 
-  ggtitle("Arabidopsis lyrata homeologs") + 
+Ahal_gl_PCA13_plot <- ggplot(Ahal_gl_pca_scores, aes(x=PC1, y=PC3, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis halleri subgenome") + 
+  xlab(Ahal_PC1_contribute_lab) + ylab(Ahal_PC3_contribute_lab) +
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
+  stat_ellipse(level = 0.95, size = 0.3) + 
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw()
+
+
+Alyr_gl_PCA12_plot <- ggplot(Alyr_gl_pca_scores, aes(x=PC1, y=PC2, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis lyrata subgenome") + 
   xlab(Alyr_PC1_contribute_lab) + ylab(Alyr_PC2_contribute_lab) +
-  geom_point(alpha=0.5, size=0.8) + 
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
   stat_ellipse(level = 0.95, size = 0.3) + 
   geom_hline(yintercept = 0) + 
   geom_vline(xintercept = 0) + 
   theme_bw()
 
+Alyr_gl_PCA13_plot <- ggplot(Alyr_gl_pca_scores, aes(x=PC1, y=PC3, colour=Population, shape=Population)) + 
+  ggtitle("Arabidopsis lyrata subgenome") + 
+  xlab(Alyr_PC1_contribute_lab) + ylab(Alyr_PC3_contribute_lab) +
+  geom_point(alpha=0.5, size=1) + 
+  scale_shape_manual(values = seq(1,25,1)) +
+  stat_ellipse(level = 0.95, size = 0.3) + 
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw()
 
-layout_1 <- rbind(c(1,2),
-                  c(3,3),
-                  c(3,3))
+layout_1 <- rbind(c(1,2,3),
+                  c(4,5,6))
 
-Akm_gl_PCA_plot_all <- gridExtra::grid.arrange(Ahal_gl_PCA_plot,Alyr_gl_PCA_plot,Akm_gl_PCA_plot,layout_matrix=layout_1)
+Akm_gl_PCA_plot_all <- gridExtra::grid.arrange(Akm_gl_PCA12_Plot,
+                                               Ahal_gl_PCA12_plot,
+                                               Alyr_gl_PCA12_plot,
+                                               Akm_gl_PCA13_Plot,
+                                               Ahal_gl_PCA13_plot,
+                                               Alyr_gl_PCA13_plot,
+                                               layout_matrix=layout_1)
 plot(Akm_gl_PCA_plot_all)
