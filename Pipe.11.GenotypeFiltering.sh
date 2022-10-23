@@ -59,6 +59,7 @@ perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_
 
 
 #--------------------------------------------------------------------------------------------------------------------
+##Ahal homeologs
 #set filtered data without considering linkage disequribrium and minor alleles: H-subgenome
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
@@ -71,6 +72,11 @@ gatk SelectVariants\
 cp $vcf_folder/Akm.ahal.snp.filter06.vcf $vcf_folder/Akm.ahal.snp.singleton.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.singleton.vcf > $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
 tabix -p vcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
+
+#Setting samples including singleton after thining 5000bp: H-subgenome
+vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.singleton.thin.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.singleton.thin.vcf > $vcf_folder/Akm.ahal.snp.singleton.thin.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.singleton.thin.vcf.gz
 
 #...................................
 #LD-pruning for including singleton: H-subgenome
@@ -124,7 +130,7 @@ gunzip -d -k $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz
 #filtering out MAF < 0.01: H-subgenome
 vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.vcf > $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
-tabix -p $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 
 #Convering from vcf to plink ped/map
 vcftools --vcf $vcf_folder/Akm.ahal.snp.maf001.vcf\
@@ -146,7 +152,7 @@ gatk SelectVariants\
  -O $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf
 
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
-tabix -p $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
+tabix -p vcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 
 #output H-subgenome plink ped/bed format 
 #************************************************************************************
@@ -170,7 +176,7 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 
 
 
-
+##Alyr homeologs
 #set filtered data without considering linkage disequribrium and minor alleles: L-subgenome
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
@@ -183,6 +189,11 @@ gatk SelectVariants\
 cp $vcf_folder/Akm.alyr.snp.filter06.vcf $vcf_folder/Akm.alyr.snp.singleton.vcf
 bgzip -c $vcf_folder/Akm.alyr.snp.singleton.vcf > $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
 tabix -p vcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
+
+#Setting samples including singleton after thining 5000bp: L-subgenome
+vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.singleton.thin.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.singleton.thin.vcf > $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz
+tabix -p vcf $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz
 
 #...................................
 #LD-pruning for including singleton: L-subgenome
@@ -286,8 +297,22 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 #--------------------------------------------------------------------------------------------------------------------
 
 #Combing H- and L- plink ped/map files 06maf001
+vcf-concat $vcf_folder/Akm.ahal.snp.singleton.thin.vcf.gz $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz > $vcf_folder/Akm.snp.singleton.thin.vcf
+bgzip -c $vcf_folder/Akm.snp.singleton.thin.vcf > $vcf_folder/Akm.snp.singleton.thin.vcf.gz
+tabix -p vcf $vcf_folder/Akm.snp.singleton.thin.vcf.gz
+
 vcf-concat $vcf_folder/Akm.ahal.snp.singleton.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.singleton.LDpruned.vcf.gz > $vcf_folder/Akm.snp.singleton.LDpruned.vcf
+bgzip -c $vcf_folder/Akm.snp.singleton.LDpruned.vcf > $vcf_folder/Akm.snp.singleton.LDpruned.gz
+tabix -p vcf $vcf_folder/Akm.snp.singleton.LDpruned.gz
+
 vcf-concat $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.non_singleton.LDpruned.vcf.gz > $vcf_folder/Akm.snp.non_singleton.LDpruned.vcf
+bgzip -c $vcf_folder/Akm.snp.non_singleton.LDpruned.vcf > $vcf_folder/Akm.snp.non_singleton.LDpruned.vcf.gz
+tabix -p vcf $vcf_folder/Akm.snp.non_singleton.LDpruned.vcf.gz
+
+vcf-concat $vcf_folder/Akm.ahal.snp.maf001.thin.vcf.gz $vcf_folder/Akm.alyr.snp.maf001.thin.vcf.gz > $vcf_folder/Akm.snp.maf001.thin.vcf
+bgzip -c $vcf_folder/Akm.snp.maf001.thin.vcf > $vcf_folder/Akm.snp.maf001.thin.vcf.gz
+tabix -p vcf $vcf_folder/Akm.snp.maf001.thin.vcf.gz
+
 
 plink --file $plink_folder/Akm.ahal.06maf001 --merge $plink_folder/Akm.alyr.06maf001.ped $plink_folder/Akm.alyr.06maf001.map --recode --out $plink_folder/Akm.06.maf001
 
