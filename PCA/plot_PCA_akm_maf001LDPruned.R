@@ -90,7 +90,7 @@ Alyr_gl_pca_scores$Population <- factor(Alyr_gl_pca_scores$Population, levels=un
 
 
 Akm_gl_PCA12_Plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC2, colour=Population, shape=Population)) + 
-  ggtitle("Arabidopsis kamchatica allopolyploid-genome") + 
+  ggtitle("Arabidopsis kamchatica genome") + 
   xlab(Akm_PC1_contribute_lab) + ylab(Akm_PC2_contribute_lab) +
   geom_point(alpha=0.5, size=1) + 
   scale_shape_manual(values = seq(1,25,1)) +
@@ -100,7 +100,7 @@ Akm_gl_PCA12_Plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC2, colour=Populati
   theme_bw()
 
 Akm_gl_PCA13_Plot <- ggplot(Akm_gl_pca_scores, aes(x=PC1, y=PC3, colour=Population, shape=Population)) + 
-  ggtitle("Arabidopsis kamchatica allopolyploid-genome") + 
+  ggtitle("Arabidopsis kamchatica genome") + 
   xlab(Akm_PC1_contribute_lab) + ylab(Akm_PC3_contribute_lab) +
   geom_point(alpha=0.5, size=1) + 
   scale_shape_manual(values = seq(1,25,1)) +
