@@ -20,31 +20,31 @@ ID_Pop$Population <- factor(ID_Pop$Population, levels=unique(ID_Pop_sorted_latit
 
 #Convert to genind
 Akm_genind <- vcfR2genind(Akm_vcf)
-pop(Akm_genind) <- Pop_ID$Population
+pop(Akm_genind) <- ID_Pop$Population
 no_pop <- length(unique(pop(Akm_genind)))
 Akm_id <- indNames(Akm_genind)
 
 Ahal_genind <- vcfR2genind(Ahal_vcf)
-pop(Ahal_genind) <- Pop_ID$Population
+pop(Ahal_genind) <- ID_Pop$Population
 Ahal_id <- indNames(Ahal_genind)
 
 Alyr_genind <- vcfR2genind(Alyr_vcf)
-pop(Alyr_genind) <- Pop_ID$Population
+pop(Alyr_genind) <- ID_Pop$Population
 Alyr_id <- indNames(Alyr_genind)
 
 
 #Convert to genlight
 Akm_gl <- vcfR2genlight(Akm_vcf)
 ploidy(Akm_gl) <- 2
-pop(Akm_gl) <- Pop_ID$Population
+pop(Akm_gl) <- ID_Pop$Population
 
 Ahal_gl <- vcfR2genlight(Ahal_vcf)
 ploidy(Ahal_gl) <- 2
-pop(Ahal_gl) <- Pop_ID$Population
+pop(Ahal_gl) <- ID_Pop$Population
 
 Alyr_gl <- vcfR2genlight(Alyr_vcf)
 ploidy(Alyr_gl) <- 2
-pop(Alyr_gl) <- Pop_ID$Population
+pop(Alyr_gl) <- ID_Pop$Population
 
 
 #glPlot(Akm_gl)
@@ -162,3 +162,4 @@ Akm_gl_PCA_plot_all <- gridExtra::grid.arrange(Akm_gl_PCA12_Plot,
                                                Alyr_gl_PCA13_plot,
                                                layout_matrix=layout_1)
 plot(Akm_gl_PCA_plot_all)
+
