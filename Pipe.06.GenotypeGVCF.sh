@@ -33,18 +33,32 @@ DB_folder_ahal=$main_folder/$genomicsDB_folder_ahal
 DB_folder_alyr=$main_folder/$genomicsDB_folder_alyr
 
 
-#Genotype for ahal
+#Genotyping for ahal
 gatk GenotypeGVCFs\
  -R $reference_folder/Ahal_v2_2_1.fa\
  -V gendb://$DB_folder_ahal\
  -O $vcf_folder/Akm.ahal.raw.vcf.gz
 
+#Genotyping for ahal including non-variant-sites
+gatk GenotypeGVCFs\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V gendb://$DB_folder_ahal\
+ --include-non-variant-sites\
+ -O $vcf_folder/Akm.ahal.raw.non_variant.vcf.gz
 
-#Genotype for alyr
+#Genotyping for alyr
 gatk GenotypeGVCFs\
  -R $reference_folder/Alyr_v2_2_1.fa\
  -V gendb://$DB_folder_alyr\
+ --include-non-variant-sites\
  -O $vcf_folder/Akm.alyr.raw.vcf.gz
+
+#Genotyping for alyr including non-variant-sites
+gatk GenotypeGVCFs\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V gendb://$DB_folder_alyr\
+ --include-non-variant-sites\
+ -O $vcf_folder/Akm.alyr.raw.non_variant.vcf.gz
 
 
 cd $CURRENT_DIR
