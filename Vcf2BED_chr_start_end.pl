@@ -1,4 +1,4 @@
-#!/usr/bin/perl -i
+#!/usr/bin/perl
 #Vcf2BED_chr_start_end.pl
 #by HIRAO Akira
 
