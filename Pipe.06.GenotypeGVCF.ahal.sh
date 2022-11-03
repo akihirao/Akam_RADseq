@@ -47,17 +47,17 @@ gatk GenotypeGVCFs\
  -O $vcf_folder/Akm.ahal.raw.include_non_variant.vcf.gz
 
 #Genotyping for alyr
-gatk GenotypeGVCFs\
- -R $reference_folder/Alyr_v2_2_1.fa\
- -V gendb://$DB_folder_alyr\
- -O $vcf_folder/Akm.alyr.raw.vcf.gz
+#gatk GenotypeGVCFs\
+# -R $reference_folder/Alyr_v2_2_1.fa\
+# -V gendb://$DB_folder_alyr\
+# -O $vcf_folder/Akm.alyr.raw.vcf.gz
 
 #Genotyping for alyr including non-variant-sites
-gatk GenotypeGVCFs\
- -R $reference_folder/Alyr_v2_2_1.fa\
- -V gendb://$DB_folder_alyr\
- --include-non-variant-sites\
- -O $vcf_folder/Akm.alyr.raw.include_non_variant.vcf.gz
+#gatk GenotypeGVCFs\
+# -R $reference_folder/Alyr_v2_2_1.fa\
+# -V gendb://$DB_folder_alyr\
+# --include-non-variant-sites\
+# -O $vcf_folder/Akm.alyr.raw.include_non_variant.vcf.gz
 
 
 cd $CURRENT_DIR
