@@ -27,13 +27,6 @@ gatk SelectVariants\
  --restrict-alleles-to BIALLELIC\
  -O Akm.ahal.raw.snp.vcf.gz
 
-#Extracting non-variants for H homeologs
-gatk SelectVariants\
- -R $reference_folder/Ahal_v2_2_1.fa\
- -V Akm.ahal.raw.include_non_variant.vcf.gz\
- -select-type NO_VARIATION\
- -O Akm.ahal.raw.non_variant.vcf.gz
-
 #Extracting indel for H homeologs
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
@@ -41,6 +34,13 @@ gatk SelectVariants\
  -select-type INDEL\
  --restrict-alleles-to BIALLELIC\
  -O Akm.ahal.raw.indel.vcf.gz
+
+#Extracting non-variants for H homeologs
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V Akm.ahal.raw.include_non_variant.vcf.gz\
+ -select-type NO_VARIATION\
+ -O Akm.ahal.raw.non_variant.vcf.gz
 #---------------------------------
 #---------------------------------
 #Extracting snp for L homeologs
@@ -51,14 +51,6 @@ gatk SelectVariants\
  --restrict-alleles-to BIALLELIC\
  -O Akm.alyr.raw.snp.vcf.gz
 
-#Extracting non-variants for L homeologs
-gatk SelectVariants\
- -R $reference_folder/Alyr_v2_2_1.fa\
- -V Akm.alyr.raw.include_non_variant.vcf.gz\
- -select-type SNP\
- --restrict-alleles-to BIALLELIC\
- -O Akm.alyr.raw.non_variant.vcf.gz
-
 #Extracting indel for L homeologs
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
@@ -66,6 +58,13 @@ gatk SelectVariants\
  -select-type INDEL\
  --restrict-alleles-to BIALLELIC\
  -O Akm.alyr.raw.indel.vcf.gz
+
+#Extracting non-variants for L homeologs
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V Akm.alyr.raw.include_non_variant.vcf.gz\
+ -select-type NO_VARIATION\
+ -O Akm.alyr.raw.non_variant.vcf.gz
 #---------------------------------
 
 cd $CURRENT_DIR
