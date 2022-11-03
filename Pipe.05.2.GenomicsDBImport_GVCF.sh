@@ -14,7 +14,7 @@ main_folder=/mnt/WD20/Akm/reanalysis
 script_folder=$main_folder/Scripts
 
 module load samtools/1.10
-module load gatk/4.3.0.0
+module load gatk4/4.3.0.0
 
 
 cd $main_folder
@@ -36,7 +36,7 @@ while read MID_no; do
 	echo $MID_no
 	
 	input_sample_ahal=$input_sample_ahal$option_lab$gvcf_folder$slash_lab$MID_no$ahal_gvcf_lab$one_space
-	input_sample_alyr=$input_sample_alyr$option_lab$gvcf_folder$slash_labMID_no$alyr_gvcf_lab$one_space
+	input_sample_alyr=$input_sample_alyr$option_lab$gvcf_folder$slash_lab$MID_no$alyr_gvcf_lab$one_space
 
 done < $script_folder/MID_list.txt #list of kam_MID
 
@@ -47,20 +47,20 @@ target_ID_alyr="alyr"
 genomicsDB_folder_ahal=genomicsDB.$target_ID_ahal
 genomicsDB_folder_alyr=genomicsDB.$target_ID_alyr
 
-DB_folder_ahal=$output_folder/$genomicsDB_folder_ahal
-DB_folder_alyr=$output_folder/$genomicsDB_folder_alyr
+DB_folder_ahal=$main_folder/$genomicsDB_folder_ahal
+DB_folder_alyr=$main_folder/$genomicsDB_folder_alyr
 
 
 #Prepair priori Ref_alyr.list (header list of reference fasta)
 gatk GenomicsDBImport\
  $input_sample_alyr\
  --genomicsdb-workspace-path  $DB_folder_alyr\
- --intervals $SCRIPT_DIR/Ref_alyr.list\
+ --intervals $script_folder/Ref_alyr.list\
  --reader-threads $no_threads
 
 
 cd $CURRENT_DIR
 
 module unload samtools/1.10
-module unload gatk/4.3.0.0
+module unload gatk4/4.3.0.0
 
