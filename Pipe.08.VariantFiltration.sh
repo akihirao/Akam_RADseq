@@ -1,25 +1,27 @@
-#!/bin/bash -i
+#!/bin/bash
 #Pipe.08.VariantFiltration.sh
 #by HIRAO Akira
 
 set -exuo pipefail
 
-SCRIPT_DIR=$(cd $(dirname $0)  && pwd)
+CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
-CPU=8
+no_threads=24
 
-reference_folder=/zfs/Akm/data/Reference/Ahal_Alyr_v2_2_1/eagle
-main_folder=/zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk
-work_folder=$main_folder/vcf_out
+reference_folder=/mnt/WD20/Akm/reanalysis/Reference
+main_folder=/mnt/WD20/Akm/reanalysis
+script_folder=$main_folder/Scripts
+vcf_folder=$main_folder/vcf_out
 plink_folder=$main_folder/plink_filtering
 
-
 module load samtools/1.10
-module load gatk/4.1.7.0
-module load vcftools/0.1.15
+module load gatk4/4.3.0.0
+module load vcftools/0.1.16
+module load bcftools/1.16
 
-cd $work_folder
+cd $vcf_folder
 mkdir -p $plink_folder
+
 
 #defining ExcessHet parameter
 #"ExcessHet > 13.0" means excess of heterozygosity with p value 0.05 
@@ -42,6 +44,7 @@ gatk VariantFiltration\
  -O Akm.ahal.snp.filter.vcf
 
 grep -E '^#|PASS' Akm.ahal.snp.filter.vcf > Akm.ahal.snp.filterPASSED.vcf
+
 
 #VariantFiltration for INDEL
 gatk VariantFiltration\
@@ -154,9 +157,9 @@ bcftools index -f Akm.alyr.indel.DPfilterNoCall.vcf.gz
 #=====================================================================
 
 
-cd $SCRIPT_DIR
+cd $CURRENT_DIR
 
 module unload samtools/1.10
-module unload gatk/4.1.7.0
-module unload vcftools/0.1.15
-
+module unload gatk/4.3.0.0
+module unload vcftools/0.1.16
+module unload bcftools/1.16
