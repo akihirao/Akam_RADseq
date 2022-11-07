@@ -179,7 +179,7 @@ gatk VariantFiltration\
  -V Akm.ahal.snp.filterPASSED.vcf.gz\
  -G-filter "DP < 5 || GQ < 30.0"\
  -G-filter-name "DP5_GQ30"\
- -O Akm.ahal.snp.DPfilterPASSED.vcf
+ -O Akm.ahal.snp.DPfilterPASSED.vcf.gz
 
 #VariantFiltration for INDELs on H-homeologs
 gatk VariantFiltration\
@@ -187,7 +187,7 @@ gatk VariantFiltration\
  -V Akm.ahal.indel.filterPASSED.vcf.gz\
  -G-filter "DP < 5 || GQ < 30.0"\
  -G-filter-name "DP5_GQ30"\
- -O Akm.ahal.indel.DPfilterPASSED.vcf
+ -O Akm.ahal.indel.DPfilterPASSED.vcf.gz
 
 #VariantFiltration for Non-variants on H-homeologs
 gatk VariantFiltration\
@@ -195,7 +195,7 @@ gatk VariantFiltration\
  -V Akm.ahal.raw.non_variant.no_ExcessHetBlock.vcf.gz\
  -G-filter "DP < 5 || RGQ < 30.0"\
  -G-filter-name "DP5_RGQ30"\
- -O Akm.ahal.non_variant.DPfilterPASSED.vcf
+ -O Akm.ahal.non_variant.DPfilterPASSED.vcf.gz
 
 #-----------------------------------------------------
 #VariantFiltration for SNPs on L-homeologs
@@ -204,7 +204,7 @@ gatk VariantFiltration\
  -V Akm.alyr.snp.filterPASSED.vcf.gz\
  -G-filter "DP < 5 || GQ < 30.0"\
  -G-filter-name "DP5_GQ30"\
- -O Akm.alyr.snp.DPfilterPASSED.vcf
+ -O Akm.alyr.snp.DPfilterPASSED.vcf.gz
 
 #VariantFiltration for INDELs on L-homeologs
 gatk VariantFiltration\
@@ -212,7 +212,7 @@ gatk VariantFiltration\
  -V Akm.alyr.indel.filterPASSED.vcf.gz\
  -G-filter "DP < 5 || GQ < 30.0"\
  -G-filter-name "DP5_GQ30"\
- -O Akm.alyr.indel.DPfilterPASSED.vcf
+ -O Akm.alyr.indel.DPfilterPASSED.vcf.gz
 
 #VariantFiltration for Non-variants on L-homeologs
 gatk VariantFiltration\
@@ -220,14 +220,14 @@ gatk VariantFiltration\
  -V Akm.alyr.raw.non_variant.no_ExcessHetBlock.vcf.gz\
  -G-filter "DP < 5 || RGQ < 30.0"\
  -G-filter-name "DP5_RGQ30"\
- -O Akm.alyr.non_variant.DPfilterPASSED.vcf
+ -O Akm.alyr.non_variant.DPfilterPASSED.vcf.gz
 #=======================================-
 
 #Set filtered sites to no call: SNPs on H-homeologs
 #set filtering out locus with no genotypes 99%
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V Akm.ahal.snp.DPfilterPASSED.vcf\
+ -V Akm.ahal.snp.DPfilterPASSED.vcf.gz\
  --set-filtered-gt-to-nocall\
  --max-nocall-fraction 0.99\
  --exclude-filtered\
@@ -258,7 +258,7 @@ gatk SelectVariants\
 #set filtering out locus with no genotypes 99%
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
- -V Akm.alyr.snp.DPfilterPASSED.vcf\
+ -V Akm.alyr.snp.DPfilterPASSED.vcf.gz\
  --set-filtered-gt-to-nocall\
  --max-nocall-fraction 0.99\
  --exclude-filtered\
