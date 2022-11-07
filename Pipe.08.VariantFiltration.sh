@@ -192,7 +192,7 @@ gatk VariantFiltration\
 #VariantFiltration for Non-variants on H-homeologs
 gatk VariantFiltration\
  -R $reference_folder/Ahal_v2_2_1.fa\
- -V Akm.ahal.raw.non_variant.no_ExcessHetBlock.vcf.gz
+ -V Akm.ahal.raw.non_variant.no_ExcessHetBlock.vcf.gz\
  -G-filter "DP < 5 || RGQ < 30.0"\
  -G-filter-name "DP5_RGQ30"\
  -O Akm.ahal.non_variant.DPfilterPASSED.vcf
@@ -217,7 +217,7 @@ gatk VariantFiltration\
 #VariantFiltration for Non-variants on L-homeologs
 gatk VariantFiltration\
  -R $reference_folder/Alyr_v2_2_1.fa\
- -V Akm.alyr.raw.non_variant.no_ExcessHetBlock.vcf.gz
+ -V Akm.alyr.raw.non_variant.no_ExcessHetBlock.vcf.gz\
  -G-filter "DP < 5 || RGQ < 30.0"\
  -G-filter-name "DP5_RGQ30"\
  -O Akm.alyr.non_variant.DPfilterPASSED.vcf
