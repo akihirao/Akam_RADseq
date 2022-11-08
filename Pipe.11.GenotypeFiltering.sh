@@ -2,16 +2,24 @@
 #Pipe.11.GenotypeFiltering.sh
 #by HIRAO Akira
 
-SCRIPT_DIR=$(cd $(dirname $0) && pwd)
+set -exuo pipefail
 
-module load vcftools/0.1.15
-module load samtools/1.10
-module load gatk/4.1.7.0
+CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
-reference_folder=/zfs/Akm/data/Reference/Ahal_Alyr_v2_2_1/eagle
-main_folder=/zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk
-plink_folder=$main_folder/plink_filtering
+no_threads=24
+
+reference_folder=/mnt/WD20/Akm/reanalysis/Reference
+main_folder=/mnt/WD20/Akm/reanalysis
+script_folder=$main_folder/Scripts
 vcf_folder=$main_folder/vcf_out
+plink_folder=$main_folder/plink_filtering
+
+
+module load samtools/1.10
+module load gatk4/4.3.0.0
+module load vcftools/0.1.16
+module load bcftools/1.16
+
 
 Akm_lab="Akm"
 snp_lab="snp"
@@ -32,30 +40,30 @@ initial_input=$Akm_lab.$snp_lab
 output=$Akm_lab
 
 #mind 0.99 geno 0.99: removing >99% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$initial_input --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$output.$lab_01 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_01 --recode
 
 #mind 0.95 geno 0.95: removing >95% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$output.$lab_02 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_02 --recode
 
 #mind 0.9 geno 0.9: removing >90% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_02 --mind 0.9 --geno 0.9 --allow-no-sex --out $plink_folder/$output.$lab_03 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$output.$Akm_lab.snp.$lab_02 --mind 0.9 --geno 0.9 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_03 --recode
 
 #mind 0.8 geno 0.8: removing >80% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_03 --mind 0.8 --geno 0.8 --allow-no-sex --out $plink_folder/$output.$lab_04 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_03 --mind 0.8 --geno 0.8 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_04 --recode
 
 #mind 0.7 geno 0.7: removing >70% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_04 --mind 0.7 --geno 0.7 --allow-no-sex --out $plink_folder/$output.$lab_05 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_04 --mind 0.7 --geno 0.7 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_05 --recode
 
 #mind 0.6 geno 0.6: removing >60% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$output.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$output.$lab_06 --recode
+plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_06 --recode
 
 
-perl $SCRIPT_DIR/PlinkMAP2BED.pl < $plink_folder/$output.$lab_06.map > $plink_folder/$output.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Ahal.pl < $plink_folder/$output.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$output.ahal.$lab_06.bed
-perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$output.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$output.alyr.$lab_06.bed
+perl $script_folder/PlinkMAP2BED.pl < $plink_folder/$Akm_lab.snp.$lab_06.map > $plink_folder/$Akm_lab.snp.$lab_06.bed
+perl $script_folder/BED.Select.Ahal.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$Akm_lab.ahal.snp.$lab_06.bed
+perl $SCRIPT_DIR/BED.Select.Alyr.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$Akm_lab.alyr.snp.$lab_06.bed
 
 #extracting ID from final.ped
-perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_DIR/Akm.$lab_06.indiv.args
+perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $script_folder/Akm.$lab_06.indiv.args
 
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -64,8 +72,8 @@ perl $SCRIPT_DIR/Select_ID_PED.pl < $plink_folder/$output.$lab_06.ped > $SCRIPT_
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
  -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
- --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
- -L $plink_folder/Akm.ahal.06.bed\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.ahal.snp.06.bed\
  -O $vcf_folder/Akm.ahal.snp.filter06.vcf
 
 #Setting samples including singleton: H-subgenome
@@ -181,8 +189,8 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
  -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
- --sample-name $SCRIPT_DIR/Akm.$lab_06.indiv.args\
- -L $plink_folder/Akm.alyr.06.bed\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.alyr.snp.06.bed\
  -O $vcf_folder/Akm.alyr.snp.filter06.vcf
 
 #Setting samples including singleton: L-subgenome
