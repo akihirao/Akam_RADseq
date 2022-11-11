@@ -46,7 +46,7 @@ no_sites_Akm_alyr=`wc -l < $plink_folder/Akm.alyr.snp.map`
 vcftools --gzvcf $vcf_folder/Akm.alyr.snp.non_variant.NonExcessHe.vcf.gz\
  --plink --out $plink_folder/Akm.alyr.snp.non_variant
 cp  $plink_folder/Akm.alyr.snp.non_variant.map $plink_folder/Akm.alyr.snp.non_variant.origin.map
-perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.alyr.snp.non_variant_origin.map > $plink_folder/Akm.alyr.snp.non_variant.map
+perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.alyr.snp.non_variant.origin.map > $plink_folder/Akm.alyr.snp.non_variant.map
 no_sites_Akm_alyr_snp_nonvariant=`wc -l < $plink_folder/Akm.alyr.snp.non_variant.map`
 
 
