@@ -36,46 +36,46 @@ fi
 
 
 #Convering from vcf to plink ped/map: SNPs on H-subgenome
-#vcftools --gzvcf $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf.gz\
-# --plink --out $plink_folder/Akm.ahal.snp
-#cp  $plink_folder/Akm.ahal.snp.map $plink_folder/Akm.ahal.snp.origin.map
-#perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.ahal.snp.origin.map > $plink_folder/Akm.ahal.snp.map
-#no_sites_Akm_ahal_snp=`wc -l < $plink_folder/Akm.ahal.snp.map`
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.NonExcessHe.vcf.gz\
+ --plink --out $plink_folder/Akm.ahal.snp
+cp  $plink_folder/Akm.ahal.snp.map $plink_folder/Akm.ahal.snp.origin.map
+perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.ahal.snp.origin.map > $plink_folder/Akm.ahal.snp.map
+no_sites_Akm_ahal_snp=`wc -l < $plink_folder/Akm.ahal.snp.map`
 
 #Convering from vcf to plink ped/map: SNPs+Non-variants on H-subgenome
-#vcftools --gzvcf $vcf_folder/Akm.ahal.snp.non_variant.NonExcessHe.vcf.gz\
-# --plink --out $plink_folder/Akm.ahal.snp.non_variant
-#cp  $plink_folder/Akm.ahal.snp.non_variant.map $plink_folder/Akm.ahal.snp.non_variant.origin.map
-#perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.ahal.snp.non_variant.origin.map > $plink_folder/Akm.ahal.snp.non_variant.map
-#no_sites_Akm_ahal_snp_nonvariant=`wc -l < $plink_folder/Akm.ahal.snp.non_variant.map`
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.non_variant.NonExcessHe.vcf.gz\
+ --plink --out $plink_folder/Akm.ahal.snp.non_variant
+cp  $plink_folder/Akm.ahal.snp.non_variant.map $plink_folder/Akm.ahal.snp.non_variant.origin.map
+perl $script_folder/PlinkMAP_modified2A.pl 0 <  $plink_folder/Akm.ahal.snp.non_variant.origin.map > $plink_folder/Akm.ahal.snp.non_variant.map
+no_sites_Akm_ahal_snp_nonvariant=`wc -l < $plink_folder/Akm.ahal.snp.non_variant.map`
 
 
 #Convering from vcf to plink ped/map: SNPs on L-subgenome
-#vcftools --gzvcf $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf.gz\
-# --plink --out $plink_folder/Akm.alyr.snp
-#cp  $plink_folder/Akm.alyr.snp.map $plink_folder/Akm.alyr.snp.origin.map
-#perl $script_folder/PlinkMAP_modified2A.pl $no_sites_Akm_ahal_snp <  $plink_folder/Akm.alyr.snp.origin.map > $plink_folder/Akm.alyr.snp.map
-#no_sites_Akm_alyr_snp=`wc -l < $plink_folder/Akm.alyr.snp.map`
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.NonExcessHe.vcf.gz\
+ --plink --out $plink_folder/Akm.alyr.snp
+cp  $plink_folder/Akm.alyr.snp.map $plink_folder/Akm.alyr.snp.origin.map
+perl $script_folder/PlinkMAP_modified2A.pl $no_sites_Akm_ahal_snp <  $plink_folder/Akm.alyr.snp.origin.map > $plink_folder/Akm.alyr.snp.map
+no_sites_Akm_alyr_snp=`wc -l < $plink_folder/Akm.alyr.snp.map`
 
 #Convering from vcf to plink ped/map: SNPs+Non-variants on L-subgenome
-#vcftools --gzvcf $vcf_folder/Akm.alyr.snp.non_variant.NonExcessHe.vcf.gz\
-# --plink --out $plink_folder/Akm.alyr.snp.non_variant
-#cp  $plink_folder/Akm.alyr.snp.non_variant.map $plink_folder/Akm.alyr.snp.non_variant.origin.map
-#perl $script_folder/PlinkMAP_modified2A.pl $no_sites_Akm_ahal_snp_nonvariant <  $plink_folder/Akm.alyr.snp.non_variant.origin.map > $plink_folder/Akm.alyr.snp.non_variant.map
-#no_sites_Akm_alyr_snp_nonvariant=`wc -l < $plink_folder/Akm.alyr.snp.non_variant.map`
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.non_variant.NonExcessHe.vcf.gz\
+ --plink --out $plink_folder/Akm.alyr.snp.non_variant
+cp  $plink_folder/Akm.alyr.snp.non_variant.map $plink_folder/Akm.alyr.snp.non_variant.origin.map
+perl $script_folder/PlinkMAP_modified2A.pl $no_sites_Akm_ahal_snp_nonvariant <  $plink_folder/Akm.alyr.snp.non_variant.origin.map > $plink_folder/Akm.alyr.snp.non_variant.map
+no_sites_Akm_alyr_snp_nonvariant=`wc -l < $plink_folder/Akm.alyr.snp.non_variant.map`
 
 
 #-----------------------
 #Preparing Non-variants on H subgenome before final filtering
-#perl $script_folder/PlinkMAP2BED.pl < $plink_folder/Akm.ahal.snp.non_variant.map > $plink_folder/Akm.ahal.snp.non_variant.bed
-#perl $script_folder/BED.Select.Ahal.pl < $plink_folder/Akm.ahal.snp.non_variant.bed | tr "_" " " | sort -k 5n -k 6n | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/Akm.ahal.snp.non_variant.sorted.bed
+perl $script_folder/PlinkMAP2BED.pl < $plink_folder/Akm.ahal.snp.non_variant.map > $plink_folder/Akm.ahal.snp.non_variant.bed
+perl $script_folder/BED.Select.Ahal.pl < $plink_folder/Akm.ahal.snp.non_variant.bed | tr "_" " " | sort -k 5n -k 6n | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/Akm.ahal.snp.non_variant.sorted.bed
 
-#gatk SelectVariants\
-# -R $reference_folder/Ahal_v2_2_1.fa\
-# -V $vcf_folder/Akm.ahal.snp.non_variant.DPfilterNoCall.vcf.gz\
-# -L $plink_folder/Akm.ahal.snp.non_variant.sorted.bed\
-# -select-type NO_VARIATION\
-# -O $vcf_folder/Akm.ahal.non_variant.DPfilterNoCall.NonExcessHet.vcf.gz
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.non_variant.DPfilterNoCall.vcf.gz\
+ -L $plink_folder/Akm.ahal.snp.non_variant.sorted.bed\
+ -select-type NO_VARIATION\
+ -O $vcf_folder/Akm.ahal.non_variant.DPfilterNoCall.NonExcessHet.vcf.gz
 
 #Convering from vcf to plink ped/map: Non-variants on H-subgenome
 vcftools --gzvcf $vcf_folder/Akm.ahal.non_variant.DPfilterNoCall.NonExcessHet.vcf.gz\
