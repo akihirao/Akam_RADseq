@@ -40,56 +40,83 @@ initial_input=$Akm_lab.$snp_lab
 output=$Akm_lab
 
 #mind 0.99 geno 0.99: removing >99% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_01 --recode
+#plink --threads $no_threads -noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_01 --recode
+#perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_01.ped > $plink_folder/$Akm_lab.snp.$lab_01.list.txt
+#plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant --geno 0.99 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_01.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_01 --recode
 
 #mind 0.95 geno 0.95: removing >95% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_02 --recode
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_02 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_02.ped > $plink_folder/$Akm_lab.snp.$lab_02.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant.$lab_01 --geno 0.95 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_02.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_02 --recode
 
 #mind 0.9 geno 0.9: removing >90% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_02 --mind 0.9 --geno 0.9 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_03 --recode
+plink --threads $no_threads -noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_02 --mind 0.9 --geno 0.9 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_03 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_03.ped > $plink_folder/$Akm_lab.snp.$lab_03.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant.$lab_02 --geno 0.9 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_03.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_03 --recode
 
 #mind 0.8 geno 0.8: removing >80% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_03 --mind 0.8 --geno 0.8 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_04 --recode
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_03 --mind 0.8 --geno 0.8 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_04 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_04.ped > $plink_folder/$Akm_lab.snp.$lab_04.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant.$lab_03 --geno 0.8 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_04.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_04 --recode
 
 #mind 0.7 geno 0.7: removing >70% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_04 --mind 0.7 --geno 0.7 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_05 --recode
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_04 --mind 0.7 --geno 0.7 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_05 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_05.ped > $plink_folder/$Akm_lab.snp.$lab_05.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant.$lab_04 --geno 0.7 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_05.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_05 --recode
 
 #mind 0.6 geno 0.6: removing >60% missing individuals and/or sites
-plink --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_06 --recode
-
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_05 --mind 0.6 --geno 0.6 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_06 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $plink_folder/$Akm_lab.snp.$lab_06.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant.$lab_05 --geno 0.6 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_06.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_06 --recode
 
 perl $script_folder/PlinkMAP2BED.pl < $plink_folder/$Akm_lab.snp.$lab_06.map > $plink_folder/$Akm_lab.snp.$lab_06.bed
+perl $script_folder/PlinkMAP2BED.pl < $plink_folder/$Akm_lab.non_variant.$lab_06.map > $plink_folder/$Akm_lab.non_variant.$lab_06.bed
+cat $plink_folder/$Akm_lab.snp.$lab_06.bed $plink_folder/$Akm_lab.non_variant.$lab_06.bed | sort > $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed
+
 perl $script_folder/BED.Select.Ahal.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$Akm_lab.ahal.snp.$lab_06.bed
 perl $script_folder/BED.Select.Alyr.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$Akm_lab.alyr.snp.$lab_06.bed
+perl $script_folder/BED.Select.Ahal.pl < $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$Akm_lab.ahal.snp.non_variant.$lab_06.bed
+perl $script_folder/BED.Select.Alyr.pl < $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$Akm_lab.alyr.snp.non_variant.$lab_06.bed
 
 #extracting ID from final.ped
 perl $script_folder/Select_ID_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $script_folder/Akm.$lab_06.indiv.args
+#perl $script_folder/Select_ID_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $script_folder/Akm.$lab_06.non_variant.indiv.args
 
+#diff $script_folder/Akm.$lab_06.indiv.args $plink_folder/$Akm_lab.snp.$lab_06.list > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#  echo "Same number of individuals: SNPs and Non-variants"
+#elif [ $? -eq 1 ]; then
+#  exit 0
+#fi
 
 #--------------------------------------------------------------------------------------------------------------------
 ##Ahal homeologs
-#set filtered data without considering linkage disequribrium and minor alleles: H-subgenome
+#setting SNPs samples including singleton (= filter06.ped/map): H-subgenome
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
  -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
  --sample-name $script_folder/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.snp.06.bed\
- -O $vcf_folder/Akm.ahal.snp.filter06.vcf
+ -O $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
 
-#Setting samples including singleton: H-subgenome
-cp $vcf_folder/Akm.ahal.snp.filter06.vcf $vcf_folder/Akm.ahal.snp.singleton.vcf
-bgzip -c $vcf_folder/Akm.ahal.snp.singleton.vcf > $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
-tabix -f -p vcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz
+#set SNPs + Non-variants samples including singleton (=filter06.ped/map): H-subgenome
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.non_variant.lab_edit.vcf.gz\
+  --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.ahal.snp.non_variant.06.bed\
+ -O $vcf_folder/Akm.ahal.snp.non_variant.singleton.vcf.gz
+
 
 #Setting samples including singleton after thining 5000bp: H-subgenome
-vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.singleton.thin.vcf
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.singleton.thin.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.singleton.thin.vcf > $vcf_folder/Akm.ahal.snp.singleton.thin.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.ahal.snp.singleton.thin.vcf.gz
 
 #...................................
 #LD-pruning for including singleton: H-subgenome
 plink2 --allow-extra-chr\
- --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf\
+ --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz\
  --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
  --out $vcf_folder/Akm.ahal.snp.singleton.LD
 
@@ -107,10 +134,10 @@ gunzip -d -f -k $vcf_folder/Akm.ahal.snp.singleton.LDpruned.vcf.gz
 #...................................
 
 #Setting samples excluding singleton: H-subgenome
-vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --singletons --stdout > $vcf_folder/Akm.ahal.snp.filter06.singletons.txt
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --singletons --stdout > $vcf_folder/Akm.ahal.snp.filter06.singletons.txt
 perl $script_folder/Singletons2BED.pl < $vcf_folder/Akm.ahal.snp.filter06.singletons.txt > $plink_folder/Akm.ahal.snp.filter06.singletons.bed
 
-vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.ahal.snp.filter06.singletons.bed > $vcf_folder/Akm.ahal.snp.non_singleton.vcf
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.ahal.snp.filter06.singletons.bed > $vcf_folder/Akm.ahal.snp.non_singleton.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.non_singleton.vcf > $vcf_folder/Akm.ahal.snp.non_singleton.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.ahal.snp.non_singleton.vcf.gz
 
@@ -136,7 +163,7 @@ gunzip -d -f -k $vcf_folder/Akm.ahal.snp.non_singleton.LDpruned.vcf.gz
 
 
 #filtering out MAF < 0.01: H-subgenome
-vcftools --vcf $vcf_folder/Akm.ahal.snp.singleton.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf001.vcf
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.vcf > $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 
@@ -185,28 +212,32 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 
 
 ##Alyr homeologs
-#set filtered data without considering linkage disequribrium and minor alleles: L-subgenome
+#setting SNPs samples including singleton (= filter06.ped/map): L-subgenome
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
  -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
  --sample-name $script_folder/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.alyr.snp.06.bed\
- -O $vcf_folder/Akm.alyr.snp.filter06.vcf
+ -O $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
 
-#Setting samples including singleton: L-subgenome
-cp $vcf_folder/Akm.alyr.snp.filter06.vcf $vcf_folder/Akm.alyr.snp.singleton.vcf
-bgzip -c $vcf_folder/Akm.alyr.snp.singleton.vcf > $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
-tabix -f -p vcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz
+#set SNPs + Non-variants samples including singleton (=filter06.ped/map): L-subgenome
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.non_variant.lab_edit.vcf.gz\
+  --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.alyr.snp.non_variant.06.bed\
+ -O $vcf_folder/Akm.alyr.snp.non_variant.singleton.vcf.gz
+
 
 #Setting samples including singleton after thining 5000bp: L-subgenome
-vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.singleton.thin.vcf
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --thin 5000 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.singleton.thin.vcf
 bgzip -c $vcf_folder/Akm.alyr.snp.singleton.thin.vcf > $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz
 
 #...................................
 #LD-pruning for including singleton: L-subgenome
 plink2 --allow-extra-chr\
- --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf\
+ --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz\
  --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
  --out $vcf_folder/Akm.alyr.snp.singleton.LD
 
@@ -224,10 +255,10 @@ gunzip -d -f -k $vcf_folder/Akm.alyr.snp.singleton.LDpruned.vcf.gz
 #...................................
 
 #Setting samples excluding singleton: L-subgenome
-vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --singletons --stdout > $vcf_folder/Akm.alyr.snp.filter06.singletons.txt
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --singletons --stdout > $vcf_folder/Akm.alyr.snp.filter06.singletons.txt
 perl $script_folder/Singletons2BED.pl < $vcf_folder/Akm.alyr.snp.filter06.singletons.txt > $plink_folder/Akm.alyr.snp.filter06.singletons.bed
 
-vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.alyr.snp.filter06.singletons.bed > $vcf_folder/Akm.alyr.snp.non_singleton.vcf
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --recode --recode-INFO-all --stdout --exclude-bed $plink_folder/Akm.alyr.snp.filter06.singletons.bed > $vcf_folder/Akm.alyr.snp.non_singleton.vcf
 bgzip -c $vcf_folder/Akm.alyr.snp.non_singleton.vcf > $vcf_folder/Akm.alyr.snp.non_singleton.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.alyr.snp.non_singleton.vcf.gz
 
@@ -254,7 +285,7 @@ gunzip -d -f -k $vcf_folder/Akm.alyr.snp.non_singleton.LDpruned.vcf.gz
 
 
 #filtering out MAF < 0.01: L-subgenome
-vcftools --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --maf 0.01 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf001.vcf
 bgzip -c $vcf_folder/Akm.alyr.snp.maf001.vcf > $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 
