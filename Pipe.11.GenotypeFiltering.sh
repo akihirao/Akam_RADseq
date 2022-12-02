@@ -40,9 +40,9 @@ initial_input=$Akm_lab.$snp_lab
 output=$Akm_lab
 
 #mind 0.99 geno 0.99: removing >99% missing individuals and/or sites
-#plink --threads $no_threads -noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_01 --recode
-#perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_01.ped > $plink_folder/$Akm_lab.snp.$lab_01.list.txt
-#plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant --geno 0.99 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_01.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_01 --recode
+plink --threads $no_threads -noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp --mind 0.99 --geno 0.99 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_01 --recode
+perl $script_folder/Extract_ID_list_from_PED.pl < $plink_folder/$Akm_lab.snp.$lab_01.ped > $plink_folder/$Akm_lab.snp.$lab_01.list.txt
+plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.non_variant --geno 0.99 --allow-no-sex --keep $plink_folder/$Akm_lab.snp.$lab_01.list.txt --out $plink_folder/$Akm_lab.non_variant.$lab_01 --recode
 
 #mind 0.95 geno 0.95: removing >95% missing individuals and/or sites
 plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_lab.snp.$lab_01 --mind 0.95 --geno 0.95 --allow-no-sex --out $plink_folder/$Akm_lab.snp.$lab_02 --recode
@@ -71,23 +71,19 @@ plink --threads $no_threads --noweb --allow-extra-chr --file $plink_folder/$Akm_
 
 perl $script_folder/PlinkMAP2BED.pl < $plink_folder/$Akm_lab.snp.$lab_06.map > $plink_folder/$Akm_lab.snp.$lab_06.bed
 perl $script_folder/PlinkMAP2BED.pl < $plink_folder/$Akm_lab.non_variant.$lab_06.map > $plink_folder/$Akm_lab.non_variant.$lab_06.bed
+
+#Conbining SNPs+Non-variants bed-files
 cat $plink_folder/$Akm_lab.snp.$lab_06.bed $plink_folder/$Akm_lab.non_variant.$lab_06.bed | sort > $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed
 
 perl $script_folder/BED.Select.Ahal.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$Akm_lab.ahal.snp.$lab_06.bed
 perl $script_folder/BED.Select.Alyr.pl < $plink_folder/$Akm_lab.snp.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$Akm_lab.alyr.snp.$lab_06.bed
+
 perl $script_folder/BED.Select.Ahal.pl < $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Ahal v2 2 scaffold /Ahal_v2_2_scaffold_/' > $plink_folder/$Akm_lab.ahal.snp.non_variant.$lab_06.bed
 perl $script_folder/BED.Select.Alyr.pl < $plink_folder/$Akm_lab.snp.non_variant.$lab_06.bed  | tr 	"_" " " | sort -k 5n -k 6n  | sed -e 's/Alyr v2 2 scaffold /Alyr_v2_2_scaffold_/' > $plink_folder/$Akm_lab.alyr.snp.non_variant.$lab_06.bed
 
 #extracting ID from final.ped
 perl $script_folder/Select_ID_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $script_folder/Akm.$lab_06.indiv.args
-#perl $script_folder/Select_ID_PED.pl < $plink_folder/$Akm_lab.snp.$lab_06.ped > $script_folder/Akm.$lab_06.non_variant.indiv.args
 
-#diff $script_folder/Akm.$lab_06.indiv.args $plink_folder/$Akm_lab.snp.$lab_06.list > /dev/null 2>&1
-#if [ $? -eq 0 ]; then
-#  echo "Same number of individuals: SNPs and Non-variants"
-#elif [ $? -eq 1 ]; then
-#  exit 0
-#fi
 
 #--------------------------------------------------------------------------------------------------------------------
 ##Ahal homeologs
@@ -103,7 +99,7 @@ gatk SelectVariants\
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
  -V $vcf_folder/Akm.ahal.snp.non_variant.lab_edit.vcf.gz\
-  --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.ahal.snp.non_variant.06.bed\
  -O $vcf_folder/Akm.ahal.snp.non_variant.singleton.vcf.gz
 
@@ -193,15 +189,19 @@ tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 #************************************************************************************
 vcftools --gzvcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.ahal.snp.maf001.LDpruned
+
 #modification of FID in plink pedmap (Popxxx -> Pop)
 perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.ahal.snp.maf001.LDpruned.ped > $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.ped
+
 #modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
 perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.ahal.snp.maf001.LDpruned.map > $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map
+
 plink --noweb --allow-extra-chr -allow-no-sex\
  --ped $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.ped\
  --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.ahal.snp.maf001.LDpruned.A\
  --recodeA --missing
+
 plink --noweb --allow-extra-chr -allow-no-sex\
  --ped $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.ped\
  --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map\
@@ -224,7 +224,7 @@ gatk SelectVariants\
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
  -V $vcf_folder/Akm.alyr.snp.non_variant.lab_edit.vcf.gz\
-  --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
  -L $plink_folder/Akm.alyr.snp.non_variant.06.bed\
  -O $vcf_folder/Akm.alyr.snp.non_variant.singleton.vcf.gz
 
@@ -237,7 +237,7 @@ tabix -f -p vcf $vcf_folder/Akm.alyr.snp.singleton.thin.vcf.gz
 #...................................
 #LD-pruning for including singleton: L-subgenome
 plink2 --allow-extra-chr\
- --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz\
+ --vcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz\
  --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
  --out $vcf_folder/Akm.alyr.snp.singleton.LD
 
@@ -338,10 +338,22 @@ plink --noweb --allow-extra-chr -allow-no-sex\
 #Combing H- and L- plink ped/map files 06maf001
 cd $vcf_folder
 
+#SNPs (singleton)
+vcf-concat Akm.ahal.snp.singleton.vcf.gz Akm.alyr.snp.singleton.vcf.gz > Akm.snp.singleton.vcf
+bgzip -c Akm.snp.singleton.vcf > Akm.snp.singleton.vcf.gz
+tabix -f -p vcf Akm.snp.singleton.vcf.gz
+
+#SNPs (singleton) + Non-variants
+vcf-concat Akm.ahal.snp.non_variant.singleton.vcf.gz Akm.alyr.snp.non_variant.singleton.vcf.gz > Akm.snp.non_variant.singleton.vcf
+bgzip -c Akm.snp.non_variant.singleton.vcf > Akm.snp.non_variant.singleton.vcf.gz
+tabix -f -p vcf Akm.snp.non_variant.singleton.vcf.gz
+
+#SNPs (thin)
 vcf-concat Akm.ahal.snp.singleton.thin.vcf.gz Akm.alyr.snp.singleton.thin.vcf.gz > Akm.snp.singleton.thin.vcf
 bgzip -c Akm.snp.singleton.thin.vcf > Akm.snp.singleton.thin.vcf.gz
 tabix -f -p vcf Akm.snp.singleton.thin.vcf.gz
 
+#SNPs (LDpruned)
 vcf-concat Akm.ahal.snp.singleton.LDpruned.vcf.gz Akm.alyr.snp.singleton.LDpruned.vcf.gz > Akm.snp.singleton.LDpruned.vcf
 bgzip -c Akm.snp.singleton.LDpruned.vcf > Akm.snp.singleton.LDpruned.vcf.gz
 tabix -f -p vcf Akm.snp.singleton.LDpruned.vcf.gz
@@ -382,42 +394,6 @@ plink --noweb --allow-extra-chr -allow-no-sex\
  --map $plink_folder/Akm.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.snp.maf001.LDpruned.A\
  --make-bed
-
-#Calculation of genotyping rate for each of filter_xx.ped
-#echo $initial_input.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $initial_input.ped
-#echo
-
-#echo $output.$lab_01.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_01.ped
-#echo
-
-#echo $output.$lab_02.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_02.ped
-#echo
-
-#echo $output.$lab_03.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_03.ped
-#echo
-
-#echo $output.$lab_04.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_04.ped
-#echo
-
-#echo $output.$lab_05.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_05.ped
-#echo
-
-#echo $output.$lab_06.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < $output.$lab_06.ped
-#echo
-
-#echo Akm.06.maf001.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < Akm.06.maf001.ped
-
-#echo Akm.snp.maf001.LDpruned.ped
-#perl $script_folder/Calc.GenotypingRatePed_total.pl < Akm.snp.maf001.LDpruned.ped
-
 
 
 #conversion from map to bed (position bed)
