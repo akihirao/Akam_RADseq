@@ -12,7 +12,7 @@ Bioinformatics pipeline for SNPs calling workflow for RAD-seq analysis of <i>Ara
 * EAGLE: Explicit Alternative Genome Likelihood Evaluator https://github.com/tony-kuo/eagle
 * Plink: Whole-genome association analysis tool https://www.cog-genomics.org/plink/
 
-The environments under Ubuntu 18.04 and/or CentOS 7.5 are tested. The versions of the tools used are documented in a series of shell scripts.
+The environment under Ubuntu 22.04 was tested. The versions of the tools used were documented in a series of shell scripts.
 
 ## Reference genomes
 <i>Arabidopsis kamchatica</i> is an allopolyploid species derived from the two diploid species <i>A. halleri</i> and <i>A. lyrata</i>. <i>Arabidopsis halleri</i> reference genome (hereafter H-genome) is from Briskine et al. (2016); <i>A. lyrata</i> reference genome (hereafter L-genome) is from Paape et al. (2018). 
@@ -28,7 +28,7 @@ The raw sequencing data analyzed were deposited into the DNA Data Bank of Japan 
 ## Flowchart
  
 <p align="left">
-  <img src="https://github.com/akihirao/Akm_RADseq/blob/master/images/AkmRADseq.SNP.workflow.jpeg"/>
+  <img src="https://github.com/akihirao/Akam_RADseq/blob/master/images/AkmRADseq.SNP.workflow.jpeg"/>
 </p>
 
 
