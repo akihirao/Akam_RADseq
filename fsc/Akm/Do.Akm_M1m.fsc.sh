@@ -40,7 +40,7 @@ do
 	 -e ${PREFIX_MODEL}.est\
 	 -n $no_sim\
 	 --msfs\
-	 -M -L $no_cycle -q -c $no_threads
+	 -M -L $no_cycle -q --cores $no_threads
 
 done
 

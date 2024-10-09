@@ -9,7 +9,7 @@ CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 #Set no threads
 no_threads=12
 
-main_folder=/home/akihirao/work/Akm/fsc_work/SFS_zero/Akm
+main_folder=/home/akihirao/work/Akm/fsc_work/MS/Akm
 fsc_work_folder=$main_folder
 
 PREFIX="Akm"
@@ -35,9 +35,15 @@ do
 	cp $fsc_work_folder"/"${PREFIX_MODEL}.est $fsc_work_folder"/"$MODEL"/"run$i"/"
 
 	#Perform fastsimcoal2
-	fsc -t ${PREFIX_MODEL}.tpl -e ${PREFIX_MODEL}.est -n $no_sim -M -m -L $no_cycle -q -c $no_threads
+	fsc\
+   	 -t ${PREFIX_MODEL}.tpl\
+	 -e ${PREFIX_MODEL}.est\
+	 -n $no_sim\
+	 --msfs\
+	 -M -L $no_cycle -q --cores $no_threads
 
 done
 
 
 cd $CURRENT_DIR
+
