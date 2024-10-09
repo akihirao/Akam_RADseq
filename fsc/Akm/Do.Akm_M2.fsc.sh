@@ -7,11 +7,10 @@ set -exuo pipefail
 CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
 #Set no threads
-no_threads=2
+no_threads=12
 
-main_folder=/zfs/Akm/work/work_homeolog/Akm_RAD_eagle_gatk
-fsc_work_folder=$main_folder/fsc_work/Akm
-
+main_folder=/home/akihirao/work/Akm/fsc_work/SFS_zero/Akm
+fsc_work_folder=$main_folder
 
 PREFIX="Akm"
 MODEL="M2"
@@ -36,7 +35,7 @@ do
 	cp $fsc_work_folder"/"${PREFIX_MODEL}.est $fsc_work_folder"/"$MODEL"/"run$i"/"
 
 	#Perform fastsimcoal2
-	fsc -t ${PREFIX_MODEL}.tpl -e ${PREFIX_MODEL}.est -n $no_sim -M -m --removeZeroSFS -L $no_cycle -q -c $no_threads
+	fsc -t ${PREFIX_MODEL}.tpl -e ${PREFIX_MODEL}.est -n $no_sim -M -m -L $no_cycle -q -c $no_threads
 
 done
 

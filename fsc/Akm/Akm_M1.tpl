@@ -16,8 +16,8 @@ N_POP2
 0
 //historical event: time, source, sink, migrants, new deme size, growth rate, migr mat index
 2 historical event
-TDIV_10 1 0 1 RESIZE_10 0 0
-TDIV_ANC 0 2 1 RESIZE_ANC 0 0
+TDIV_01 0 1 1 RESIZE_01 0 0
+TDIV_ANC 1 2 1 RESIZE_ANC 0 0
 //Number of independent loci [chromosomes]
 1 0
 //Per chromosome: Number of linkage blocks
