@@ -28,7 +28,7 @@ The raw sequencing data analyzed were deposited into the DNA Data Bank of Japan 
 ## Flowchart
  
 <p align="left">
-  <img src="https://github.com/akihirao/Akam_RADseq/blob/master/images/AkmRADseq.SNP.workflow.jpeg"/>
+  <img src="https://github.com/akihirao/Akam_RADseq/blob/main/images/AkmRADseq.SNP.workflow.jpeg"/>
 </p>
 
 
