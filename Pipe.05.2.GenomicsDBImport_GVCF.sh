@@ -9,8 +9,8 @@ CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
 no_threads=24
 
-reference_folder=/mnt/WD20/Akm/reanalysis/Reference
-main_folder=/mnt/WD20/Akm/reanalysis
+reference_folder=/mnt/WD20v1/Akm/reanalysis/Reference
+main_folder=/mnt/WD20v1/Akm/reanalysis
 script_folder=$main_folder/Scripts
 
 module load samtools/1.10

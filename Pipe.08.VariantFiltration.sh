@@ -8,8 +8,8 @@ CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
 no_threads=24
 
-reference_folder=/mnt/WD20/Akm/reanalysis/Reference
-main_folder=/mnt/WD20/Akm/reanalysis
+reference_folder=/mnt/WD20v1/Akm/reanalysis/Reference
+main_folder=/mnt/WD20/Akmv1/reanalysis
 script_folder=$main_folder/Scripts
 vcf_folder=$main_folder/vcf_out
 plink_folder=$main_folder/plink_filtering

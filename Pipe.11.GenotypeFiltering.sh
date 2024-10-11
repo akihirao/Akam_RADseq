@@ -8,8 +8,8 @@ CURRENT_DIR=$(cd $(dirname $0)  && pwd)
 
 no_threads=24
 
-reference_folder=/mnt/WD20/Akm/reanalysis/Reference
-main_folder=/mnt/WD20/Akm/reanalysis
+reference_folder=/mnt/WD20v1/Akm/reanalysis/Reference
+main_folder=/mnt/WD20v1/Akm/reanalysis
 script_folder=$main_folder/Scripts
 vcf_folder=$main_folder/vcf_out
 plink_folder=$main_folder/plink_filtering
@@ -163,30 +163,58 @@ vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --maf 0.01 --recode -
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.vcf > $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf001.vcf.gz
 
-#Convering from vcf to plink ped/map
+#filtering out MAF < 0.05: H-subgenome
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.singleton.vcf.gz --maf 0.05 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.ahal.snp.maf005.vcf
+bgzip -c $vcf_folder/Akm.ahal.snp.maf005.vcf > $vcf_folder/Akm.ahal.snp.maf005.vcf.gz
+tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf005.vcf.gz
+
+#Convering from vcf to plink ped/map MAF001
 vcftools --vcf $vcf_folder/Akm.ahal.snp.maf001.vcf\
  --plink --out $plink_folder/Akm.ahal.06maf001
 
-#LD-pruning: H-subgenome
+#Convering from vcf to plink ped/map MAF005
+vcftools --vcf $vcf_folder/Akm.ahal.snp.maf005.vcf\
+ --plink --out $plink_folder/Akm.ahal.06maf005
+
+#LD-pruning: H-subgenome MAF001
 plink2 --allow-extra-chr\
  --vcf $vcf_folder/Akm.ahal.snp.maf001.vcf\
  --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
  --out $vcf_folder/Akm.ahal.snp.maf001
 
-#convert from LD-prune.in to BED: H-subgenome
-perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf001.prune.in > $plink_folder/Akm.ahal.LDpruned.bed
+#LD-pruning: H-subgenome MAF005
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.ahal.snp.maf005.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.ahal.snp.maf005
+
+#convert from LD-prune.in to BED: H-subgenome MAF001
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf001.prune.in > $plink_folder/Akm.ahal.LDpruned.maf001.bed
 gatk SelectVariants\
  -R $reference_folder/Ahal_v2_2_1.fa\
  -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
  --sample-name $script_folder/Akm.$lab_06.indiv.args\
- -L $plink_folder/Akm.ahal.LDpruned.bed\
+ -L $plink_folder/Akm.ahal.LDpruned.maf001.bed\
  -O $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf
 
 bgzip -c $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz
 
+#convert from LD-prune.in to BED: H-subgenome MAF005
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.ahal.snp.maf005.prune.in > $plink_folder/Akm.ahal.LDpruned.maf005.bed
+gatk SelectVariants\
+ -R $reference_folder/Ahal_v2_2_1.fa\
+ -V $vcf_folder/Akm.ahal.snp.lab_edit.vcf.gz\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.ahal.LDpruned.maf005.bed\
+ -O $vcf_folder/Akm.ahal.snp.maf005.LDpruned.vcf
+
+bgzip -c $vcf_folder/Akm.ahal.snp.maf005.LDpruned.vcf > $vcf_folder/Akm.ahal.snp.maf005.LDpruned.vcf.gz
+tabix -f -p vcf $vcf_folder/Akm.ahal.snp.maf005.LDpruned.vcf.gz
+
 #output H-subgenome plink ped/bed format 
 #************************************************************************************
+## maf001
 vcftools --gzvcf $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.ahal.snp.maf001.LDpruned
 
@@ -207,6 +235,30 @@ plink --noweb --allow-extra-chr -allow-no-sex\
  --map $plink_folder/Akm.ahal.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.ahal.snp.maf001.LDpruned.A\
  --make-bed
+
+## maf005
+vcftools --gzvcf $vcf_folder/Akm.ahal.snp.maf005.LDpruned.vcf.gz\
+ --plink --out $plink_folder/Akm.ahal.snp.maf005.LDpruned
+
+#modification of FID in plink pedmap (Popxxx -> Pop)
+perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.ahal.snp.maf005.LDpruned.ped > $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.ped
+
+#modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
+perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.ahal.snp.maf005.LDpruned.map > $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.map
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.ahal.snp.maf005.LDpruned.A\
+ --recodeA --missing
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.ahal.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.ahal.snp.maf005.LDpruned.A\
+ --make-bed
+
+
 #************************************************************************************
 
 
@@ -289,31 +341,60 @@ vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --maf 0.01 --recode -
 bgzip -c $vcf_folder/Akm.alyr.snp.maf001.vcf > $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.alyr.snp.maf001.vcf.gz
 
-#Convering from vcf to plink ped/map
+#filtering out MAF < 0.05: L-subgenome
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.singleton.vcf.gz --maf 0.05 --recode --recode-INFO-all --stdout > $vcf_folder/Akm.alyr.snp.maf005.vcf
+bgzip -c $vcf_folder/Akm.alyr.snp.maf005.vcf > $vcf_folder/Akm.alyr.snp.maf005.vcf.gz
+tabix -f -p vcf $vcf_folder/Akm.alyr.snp.maf005.vcf.gz
+
+#Convering from vcf to plink ped/map MAF001
 vcftools --gzvcf $vcf_folder/Akm.alyr.snp.maf001.vcf.gz\
  --plink --out $plink_folder/Akm.alyr.06maf001
 
+#Convering from vcf to plink ped/map MAF005
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.maf005.vcf.gz\
+ --plink --out $plink_folder/Akm.alyr.06maf005
 
-#LD-pruning: L-subgenome
+
+#LD-pruning: L-subgenome MAF001
 plink2 --allow-extra-chr\
  --vcf $vcf_folder/Akm.alyr.snp.maf001.vcf\
  --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
  --out $vcf_folder/Akm.alyr.snp.maf001
 
-#convert from LD-prune.in to BED: L-subgenome
-perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf001.prune.in > $plink_folder/Akm.alyr.LDpruned.bed
+#convert from LD-prune.in to BED: L-subgenome MAF001
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf001.prune.in > $plink_folder/Akm.alyr.LDpruned.maf001.bed
 gatk SelectVariants\
  -R $reference_folder/Alyr_v2_2_1.fa\
  -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
  --sample-name $script_folder/Akm.$lab_06.indiv.args\
- -L $plink_folder/Akm.alyr.LDpruned.bed\
+ -L $plink_folder/Akm.alyr.LDpruned.maf001.bed\
  -O $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf
 
 bgzip -c $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz
 tabix -f -p vcf $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz
 
+
+#LD-pruning: L-subgenome MAF005
+plink2 --allow-extra-chr\
+ --vcf $vcf_folder/Akm.alyr.snp.maf005.vcf\
+ --indep-pairwise 100 kb 1 0.1 --set-all-var-ids @:#\
+ --out $vcf_folder/Akm.alyr.snp.maf005
+
+#convert from LD-prune.in to BED: L-subgenome MAF005
+perl $script_folder/LDpruned2BED.pl < $vcf_folder/Akm.alyr.snp.maf005.prune.in > $plink_folder/Akm.alyr.LDpruned.maf005.bed
+gatk SelectVariants\
+ -R $reference_folder/Alyr_v2_2_1.fa\
+ -V $vcf_folder/Akm.alyr.snp.lab_edit.vcf.gz\
+ --sample-name $script_folder/Akm.$lab_06.indiv.args\
+ -L $plink_folder/Akm.alyr.LDpruned.maf005.bed\
+ -O $vcf_folder/Akm.alyr.snp.maf005.LDpruned.vcf
+
+bgzip -c $vcf_folder/Akm.alyr.snp.maf005.LDpruned.vcf > $vcf_folder/Akm.alyr.snp.maf005.LDpruned.vcf.gz
+tabix -f -p vcf $vcf_folder/Akm.alyr.snp.maf005.LDpruned.vcf.gz
+
 #output L-subgenome plink ped/bed format 
 #************************************************************************************
+## MAF001
 vcftools --gzvcf $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.alyr.snp.maf001.LDpruned
 #modification of FID in plink pedmap (Popxxx -> Pop)
@@ -330,13 +411,33 @@ plink --noweb --allow-extra-chr -allow-no-sex\
  --map $plink_folder/Akm.alyr.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.alyr.snp.maf001.LDpruned.A\
  --make-bed
+
+
+## MAF005
+vcftools --gzvcf $vcf_folder/Akm.alyr.snp.maf005.LDpruned.vcf.gz\
+ --plink --out $plink_folder/Akm.alyr.snp.maf005.LDpruned
+#modification of FID in plink pedmap (Popxxx -> Pop)
+perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.alyr.snp.maf005.LDpruned.ped > $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.ped
+#modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
+perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.alyr.snp.maf005.LDpruned.map > $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.map
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.alyr.snp.maf005.LDpruned.A\
+ --recodeA --missing
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.alyr.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.alyr.snp.maf005.LDpruned.A\
+ --make-bed
 #************************************************************************************
 
 
 #--------------------------------------------------------------------------------------------------------------------
-
-#Combing H- and L- plink ped/map files 06maf001
+#========================================================================
+#Combing H- and L- plink ped/map files 06maf001/06maf005
 cd $vcf_folder
+#-----------------------------
 
 #SNPs (singleton)
 vcf-concat Akm.ahal.snp.singleton.vcf.gz Akm.alyr.snp.singleton.vcf.gz > Akm.snp.singleton.vcf
@@ -362,26 +463,71 @@ vcf-concat Akm.ahal.snp.non_singleton.LDpruned.vcf.gz Akm.alyr.snp.non_singleton
 bgzip -c Akm.snp.non_singleton.LDpruned.vcf > Akm.snp.non_singleton.LDpruned.vcf.gz
 tabix -f -p vcf Akm.snp.non_singleton.LDpruned.vcf.gz
 
+#MAF001
+vcf-concat Akm.ahal.snp.maf001.vcf.gz Akm.alyr.snp.maf001.vcf.gz > Akm.snp.maf001.vcf
+bgzip -c Akm.snp.maf001.vcf > Akm.snp.maf001.vcf.gz
+tabix -f -p vcf Akm.snp.maf001.vcf.gz
+
+#MAF005
+vcf-concat Akm.ahal.snp.maf005.vcf.gz Akm.alyr.snp.maf005.vcf.gz > Akm.snp.maf005.vcf
+bgzip -c Akm.snp.maf005.vcf > Akm.snp.maf005.vcf.gz
+tabix -f -p vcf Akm.snp.maf005.vcf.gz
+
+
+#MAF001 LDpurned
 vcf-concat Akm.ahal.snp.maf001.LDpruned.vcf.gz Akm.alyr.snp.maf001.LDpruned.vcf.gz > Akm.snp.maf001.LDpruned.vcf
-bgzip -c Akm.snp.maf001.LDpruned.vcf > Akm.snp.maf001.thin.vcf.gz
+bgzip -c Akm.snp.maf001.LDpruned.vcf > Akm.snp.maf001.LDpruned.vcf.gz
 tabix -f -p vcf Akm.snp.maf001.LDpruned.vcf.gz
+
+#MAF005 LDpruned
+vcf-concat Akm.ahal.snp.maf005.LDpruned.vcf.gz Akm.alyr.snp.maf005.LDpruned.vcf.gz > Akm.snp.maf005.LDpruned.vcf
+bgzip -c Akm.snp.maf005.LDpruned.vcf > Akm.snp.maf005.LDpruned.vcf.gz
+tabix -f -p vcf Akm.snp.maf005.LDpruned.vcf.gz
 
 cd $plink_folder
 
 plink --file $plink_folder/Akm.ahal.06maf001 --merge $plink_folder/Akm.alyr.06maf001.ped $plink_folder/Akm.alyr.06maf001.map --recode --out $plink_folder/Akm.06.maf001
+plink --file $plink_folder/Akm.ahal.06maf005 --merge $plink_folder/Akm.alyr.06maf005.ped $plink_folder/Akm.alyr.06maf005.map --recode --out $plink_folder/Akm.06.maf005
 
-vcf-concat $vcf_folder/Akm.ahal.snp.maf001.LDpruned.vcf.gz $vcf_folder/Akm.alyr.snp.maf001.LDpruned.vcf.gz > $vcf_folder/Akm.snp.maf001.LDpruned.vcf
-bgzip -c $vcf_folder/Akm.snp.maf001.LDpruned.vcf > $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz
-tabix -f -p vcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz
+
+vcftools --gzvcf $vcf_folder/Akm.snp.maf001.vcf.gz\
+ --plink --out $plink_folder/Akm.snp.maf001
+
+vcftools --gzvcf $vcf_folder/Akm.snp.maf005.vcf.gz\
+ --plink --out $plink_folder/Akm.snp.maf005
+
 
 vcftools --gzvcf $vcf_folder/Akm.snp.maf001.LDpruned.vcf.gz\
  --plink --out $plink_folder/Akm.snp.maf001.LDpruned
 
+vcftools --gzvcf $vcf_folder/Akm.snp.maf005.LDpruned.vcf.gz\
+ --plink --out $plink_folder/Akm.snp.maf005.LDpruned
+
+
 #modification of FID in plink pedmap (Popxxx -> Pop)
+perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf001.ped > $plink_folder/Akm.snp.maf001.A.ped
+perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf005.ped > $plink_folder/Akm.snp.maf005.A.ped
 perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf001.LDpruned.ped > $plink_folder/Akm.snp.maf001.LDpruned.A.ped
+perl $script_folder/PED_FID_lab_edit.pl <  $plink_folder/Akm.snp.maf005.LDpruned.ped > $plink_folder/Akm.snp.maf005.LDpruned.A.ped
+
 
 #modification of plink map for converting plink raw format. Be careful to Add 1 as @ARGV
+perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.snp.maf001.map > $plink_folder/Akm.snp.maf001.A.map
+perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.snp.maf005.map > $plink_folder/Akm.snp.maf005.A.map
 perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.snp.maf001.LDpruned.map > $plink_folder/Akm.snp.maf001.LDpruned.A.map
+perl $script_folder/PlinkMAP_modified2A.pl 1 <  $plink_folder/Akm.snp.maf005.LDpruned.map > $plink_folder/Akm.snp.maf005.LDpruned.A.map
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf001.A.ped\
+ --map $plink_folder/Akm.snp.maf001.A.map\
+ --out $plink_folder/Akm.snp.maf001.A\
+ --recodeA --missing
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf005.A.ped\
+ --map $plink_folder/Akm.snp.maf005.A.map\
+ --out $plink_folder/Akm.snp.maf005.A\
+ --recodeA --missing
 
 plink --noweb --allow-extra-chr -allow-no-sex\
  --ped $plink_folder/Akm.snp.maf001.LDpruned.A.ped\
@@ -389,15 +535,45 @@ plink --noweb --allow-extra-chr -allow-no-sex\
  --out $plink_folder/Akm.snp.maf001.LDpruned.A\
  --recodeA --missing
 
- plink --noweb --allow-extra-chr -allow-no-sex\
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.snp.maf005.LDpruned.A\
+ --recodeA --missing
+
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf001.A.ped\
+ --map $plink_folder/Akm.snp.maf001.A.map\
+ --out $plink_folder/Akm.snp.maf001.A\
+ --make-bed
+
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf005.A.ped\
+ --map $plink_folder/Akm.snp.maf005.A.map\
+ --out $plink_folder/Akm.snp.maf005.A\
+ --make-bed
+
+plink --noweb --allow-extra-chr -allow-no-sex\
  --ped $plink_folder/Akm.snp.maf001.LDpruned.A.ped\
  --map $plink_folder/Akm.snp.maf001.LDpruned.A.map\
  --out $plink_folder/Akm.snp.maf001.LDpruned.A\
  --make-bed
 
+plink --noweb --allow-extra-chr -allow-no-sex\
+ --ped $plink_folder/Akm.snp.maf005.LDpruned.A.ped\
+ --map $plink_folder/Akm.snp.maf005.LDpruned.A.map\
+ --out $plink_folder/Akm.snp.maf005.LDpruned.A\
+ --make-bed
 
 #conversion from map to bed (position bed)
+perl $script_folder/MAP2BED.pl < Akm.snp.maf001.map > Akm.snp.maf001.map.bed
+perl $script_folder/MAP2BED.pl < Akm.snp.maf005.map > Akm.snp.maf005.map.bed
 perl $script_folder/MAP2BED.pl < Akm.snp.maf001.LDpruned.map > Akm.snp.maf001.LDpruned.map.bed
+perl $script_folder/MAP2BED.pl < Akm.snp.maf005.LDpruned.map > Akm.snp.maf005.LDpruned.map.bed
+
+#-----------------------------
+
 
 cd $CURRENT_DIR
 
