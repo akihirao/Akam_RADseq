@@ -1,4 +1,4 @@
-#plot_PCA_akm_maf001LDPruned.R
+#plot_PCA_akm_maf001LDPruned_r05.R
 
 library(vcfR)
 library(poppr)
@@ -8,10 +8,15 @@ library(RColorBrewer)
 library(tidyverse)
 library(gridExtra)
 
-Akm_vcf <- vcfR::read.vcfR("Akm.snp.maf001.LDpruned.vcf.gz")
-Ahal_vcf <- vcfR::read.vcfR("Akm.ahal.snp.maf001.LDpruned.vcf.gz")
-Alyr_vcf <- vcfR::read.vcfR("Akm.alyr.snp.maf001.LDpruned.vcf.gz")
 
+rm(list=ls(all=TRUE))
+home_dir <- Sys.getenv("HOME")
+#setwd(paste0(home_dir,"/Documents/data/Akm/PCA"))
+
+
+Akm_vcf <- vcfR::read.vcfR("Akm.snp.maf001.LDpruned_r05.vcf.gz")
+Ahal_vcf <- vcfR::read.vcfR("Akm.ahal.snp.maf001.LDpruned_r05.vcf.gz")
+Alyr_vcf <- vcfR::read.vcfR("Akm.alyr.snp.maf001.LDpruned_r05.vcf.gz")
 
 #Read the ID data into R
 ID_Pop <- read_table("ID_Pop.txt")
@@ -20,31 +25,47 @@ ID_Pop$Population <- factor(ID_Pop$Population, levels=unique(ID_Pop_sorted_latit
 
 #Convert to genind
 Akm_genind <- vcfR2genind(Akm_vcf)
-pop(Akm_genind) <- ID_Pop$Population
-no_pop <- length(unique(pop(Akm_genind)))
 Akm_id <- indNames(Akm_genind)
 
+
+Akm_ind_info <- tibble(ID=Akm_id)
+Akm_ind_info <- left_join(Akm_ind_info,ID_Pop,
+                          join_by(ID))
+
+pop(Akm_genind) <- Akm_ind_info$Population
+no_pop <- length(unique(pop(Akm_genind)))
+
+
 Ahal_genind <- vcfR2genind(Ahal_vcf)
-pop(Ahal_genind) <- ID_Pop$Population
 Ahal_id <- indNames(Ahal_genind)
+if(sum(Ahal_id!=Akm_id)==0){
+  pop(Ahal_genind) <- Akm_ind_info$Population
+}else{
+  wargings("Difference in IDs between Akm and Ahal ")
+}
 
 Alyr_genind <- vcfR2genind(Alyr_vcf)
-pop(Alyr_genind) <- ID_Pop$Population
 Alyr_id <- indNames(Alyr_genind)
+if(sum(Alyr_id!=Akm_id)==0){
+  pop(Alyr_genind) <- Akm_ind_info$Population
+}else{
+  wargings("Difference in IDs between Akm and Alyr")
+}
+
 
 
 #Convert to genlight
 Akm_gl <- vcfR2genlight(Akm_vcf)
 ploidy(Akm_gl) <- 2
-pop(Akm_gl) <- ID_Pop$Population
+pop(Akm_gl) <- Akm_ind_info$Population
 
 Ahal_gl <- vcfR2genlight(Ahal_vcf)
 ploidy(Ahal_gl) <- 2
-pop(Ahal_gl) <- ID_Pop$Population
+pop(Ahal_gl) <- Akm_ind_info$Population
 
 Alyr_gl <- vcfR2genlight(Alyr_vcf)
 ploidy(Alyr_gl) <- 2
-pop(Alyr_gl) <- ID_Pop$Population
+pop(Alyr_gl) <- Akm_ind_info$Population
 
 
 #glPlot(Akm_gl)
@@ -52,25 +73,29 @@ pop(Alyr_gl) <- ID_Pop$Population
 
 # Peforming PCA
 Akm_gl_pca <- glPca(Akm_gl, nf = 20, n.cores= 4)
-Akm_PC1_contribute <- round(100*Akm_gl_pca$eig[1]/sum(Akm_gl_pca$eig),digits=1)
-Akm_PC2_contribute <- round(100*Akm_gl_pca$eig[2]/sum(Akm_gl_pca$eig),digits=1)
-Akm_PC3_contribute <- round(100*Akm_gl_pca$eig[3]/sum(Akm_gl_pca$eig),digits=1)
+
+write_csv(tibble(eig=Akm_gl_pca$eig),
+          "Akm_gl_pca_eig.csv")
+
+Akm_PC1_contribute <- format(round(100*Akm_gl_pca$eig[1]/sum(Akm_gl_pca$eig),digits=1),nsmall=1)
+Akm_PC2_contribute <- format(round(100*Akm_gl_pca$eig[2]/sum(Akm_gl_pca$eig),digits=1),nsmall=1)
+Akm_PC3_contribute <- format(round(100*Akm_gl_pca$eig[3]/sum(Akm_gl_pca$eig),digits=1),nsmall=1)
 Akm_PC1_contribute_lab <- str_c("PC1"," (",Akm_PC1_contribute,"%)")
 Akm_PC2_contribute_lab <- str_c("PC2"," (",Akm_PC2_contribute,"%)")
 Akm_PC3_contribute_lab <- str_c("PC3"," (",Akm_PC3_contribute,"%)")
 
 Ahal_gl_pca <- glPca(Ahal_gl, nf = 20, n.cores= 4)
-Ahal_PC1_contribute <- round(100*Ahal_gl_pca$eig[1]/sum(Ahal_gl_pca$eig),digits=1)
-Ahal_PC2_contribute <- round(100*Ahal_gl_pca$eig[2]/sum(Ahal_gl_pca$eig),digits=1)
-Ahal_PC3_contribute <- round(100*Ahal_gl_pca$eig[3]/sum(Ahal_gl_pca$eig),digits=1)
+Ahal_PC1_contribute <- format(round(100*Ahal_gl_pca$eig[1]/sum(Ahal_gl_pca$eig),digits=1),nsmall=1)
+Ahal_PC2_contribute <- format(round(100*Ahal_gl_pca$eig[2]/sum(Ahal_gl_pca$eig),digits=1),nsmall=1)
+Ahal_PC3_contribute <- format(round(100*Ahal_gl_pca$eig[3]/sum(Ahal_gl_pca$eig),digits=1),nsmall=1)
 Ahal_PC1_contribute_lab <- str_c("PC1"," (",Ahal_PC1_contribute,"%)")
 Ahal_PC2_contribute_lab <- str_c("PC2"," (",Ahal_PC2_contribute,"%)")
 Ahal_PC3_contribute_lab <- str_c("PC3"," (",Ahal_PC3_contribute,"%)")
 
 Alyr_gl_pca <- glPca(Alyr_gl, nf = 20, n.cores= 4)
-Alyr_PC1_contribute <- round(100*Alyr_gl_pca$eig[1]/sum(Alyr_gl_pca$eig),digits=1)
-Alyr_PC2_contribute <- round(100*Alyr_gl_pca$eig[2]/sum(Alyr_gl_pca$eig),digits=1)
-Alyr_PC3_contribute <- round(100*Alyr_gl_pca$eig[3]/sum(Alyr_gl_pca$eig),digits=1)
+Alyr_PC1_contribute <- format(round(100*Alyr_gl_pca$eig[1]/sum(Alyr_gl_pca$eig),digits=1),nsmall=1)
+Alyr_PC2_contribute <- format(round(100*Alyr_gl_pca$eig[2]/sum(Alyr_gl_pca$eig),digits=1),nsmall=1)
+Alyr_PC3_contribute <- format(round(100*Alyr_gl_pca$eig[3]/sum(Alyr_gl_pca$eig),digits=1),nsmall=1)
 Alyr_PC1_contribute_lab <- str_c("PC1"," (",Alyr_PC1_contribute,"%)")
 Alyr_PC2_contribute_lab <- str_c("PC2"," (",Alyr_PC2_contribute,"%)")
 Alyr_PC3_contribute_lab <- str_c("PC3"," (",Alyr_PC3_contribute,"%)")
@@ -79,6 +104,13 @@ Alyr_PC3_contribute_lab <- str_c("PC3"," (",Alyr_PC3_contribute,"%)")
 Akm_gl_pca_scores <- as.data.frame(Akm_gl_pca$scores)
 Akm_gl_pca_scores$Population <- pop(Akm_gl)
 Akm_gl_pca_scores$Population <- factor(Akm_gl_pca_scores$Population, levels=unique(ID_Pop_sorted_latitude$Population))
+
+Akm_gl_pca_scores_tidy <- Akm_gl_pca_scores %>%
+  as_tibble() %>%
+  mutate(ID = rownames(Akm_gl_pca_scores)) %>%
+  dplyr::select(ID,Population,paste0("PC",seq(1:20)))
+write_csv(Akm_gl_pca_scores_tidy,
+          "Akm_gl_pca_scores.csv")
 
 Ahal_gl_pca_scores <- as.data.frame(Ahal_gl_pca$scores)
 Ahal_gl_pca_scores$Population <- pop(Ahal_gl)
@@ -162,4 +194,8 @@ Akm_gl_PCA_plot_all <- gridExtra::grid.arrange(Akm_gl_PCA12_Plot,
                                                Alyr_gl_PCA13_plot,
                                                layout_matrix=layout_1)
 plot(Akm_gl_PCA_plot_all)
+pdf("Akm_gl_PCA_maf001_LDpruned_r05.pdf",
+    height=9,width=18)
+plot(Akm_gl_PCA_plot_all)
+dev.off()
 
