@@ -12,7 +12,7 @@ Bioinformatics pipeline for SNPs calling workflow for RAD-seq analysis of <i>Ara
 * EAGLE: Explicit Alternative Genome Likelihood Evaluator https://github.com/tony-kuo/eagle
 * Plink: Whole-genome association analysis tool https://www.cog-genomics.org/plink/
 
-The environment under Ubuntu 22.04 was tested. The versions of the tools used were documented in a series of shell scripts.
+The environment under Ubuntu 24.04 was tested. The versions of the tools used were documented in a series of shell scripts.
 
 ## Reference genomes
 <i>Arabidopsis kamchatica</i> is an allopolyploid species derived from the two diploid species <i>A. halleri</i> and <i>A. lyrata</i>. <i>Arabidopsis halleri</i> reference genome (hereafter H-genome) is from Briskine et al. (2016); <i>A. lyrata</i> reference genome (hereafter L-genome) is from Paape et al. (2018). 
@@ -23,7 +23,7 @@ Paape T. et al. (2018) Patterns of polymorphism and selection in the subgenomes 
 
 
 ## The sequencing data
-The raw sequencing data analyzed were deposited into the DNA Data Bank of Japan Sequence Read Archive with the accession number DRA012219.
+All demultiplexed RAD-seq raw reads are available from the DNA Data Bank of Japan Sequence Read Archive (BioProject accession number: PRJDB10775).
 
 ## Flowchart
  
@@ -43,8 +43,6 @@ Pipe.03.BamFiltering.sh
 Pipe.11.GenotypeFiltering.sh
 ```
 
-## Within easySFS/:
-This directory contains the execute shell script for conversion from VCF into site frequency spectrum (SFS) using easySFS.
 
 ## Within fsc/:
 This directory contains the input files and execute shell scripts for demographic modeling using the fastsimcoal2 program.
