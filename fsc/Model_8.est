@@ -1,0 +1,37 @@
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1  N_POP0       unif     1e3    1e5   output
+1  N_POP1       unif     1e3    1e5   output
+1  N_POP2       unif     1e3    1e5   output
+1  N_POPA0      unif     10     1e5   output
+1  N_POPA1      unif     10     1e5   output
+1  N_POPA2      unif     10     1e5   output
+1  N_ANC        unif     10     1e5   output
+1  TDIV_01      unif     10     5e5   output
+1  TPLUS        unif     10     5e5   hide
+0  m01          logunif  1e-8   5e-2  output
+0  m10          logunif  1e-8   5e-2  output
+0  m02          logunif  1e-8   5e-2  output
+0  m20          logunif  1e-8   5e-2  output
+0  m12          logunif  1e-8   5e-2  output
+0  m21          logunif  1e-8   5e-2  output
+0  md1          logunif  1e-8   5e-2  output
+0  md2          logunif  1e-8   5e-2  output
+
+
+[COMPLEX PARAMETERS]
+1  TDIV_ANC = TDIV_01+TPLUS        output
+0  RESIZE_0 = N_POPA0/N_POP0       hide
+0  RTEA_0 = log(RESIZE_0)          hide
+0  GR0 = RTEA_0/TDIV_01            hide
+0  RESIZE_1 = N_POPA1/N_POP1       hide
+0  RTEA_1 = log(RESIZE_1)          hide
+0  GR1 = RTEA_1/TDIV_01            hide
+0  RESIZE_2 = N_POPA2/N_POP2       hide
+0  RTEA_2 = log(RESIZE_2)          hide
+0  GR2 = RTEA_2/TDIV_ANC           hide
+

@@ -1,0 +1,15 @@
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1  N_POP0       unif     1e3    1e5   output
+1  N_POP1       unif     1e3    1e5   output
+1  N_POP2       unif     1e3    1e5   output
+1  N_ANC        unif     10     1e5   output
+1  TDIV_01      unif     10     5e5   output
+1  TPLUS        unif     10     5e5   hide
+
+[COMPLEX PARAMETERS]
+1  TDIV_ANC = TDIV_01+TPLUS        output
