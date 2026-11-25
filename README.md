@@ -48,7 +48,7 @@ Pipe.11.GenotypeFiltering.sh
 This directory contains the input files for demographic modeling using the fastsimcoal2 program.
 
 ## Software and versions
-A list of software tools used for variant calling and downstreampopulation genomic analyses in this study, together with theirversions and source URLs, is available in[software_versions.csv](software_versions.csv).
+A list of software tools used for variant calling and downstreampopulation genomic analyses in this study, together with theirversions and source URLs, is available in [software_versions.csv](https://github.com/akihirao/Akam_RADseq/blob/main/software_versions.csv).
 
 ## Note
 This project is currently under development. Thank you!
