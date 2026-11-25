@@ -45,7 +45,10 @@ Pipe.11.GenotypeFiltering.sh
 
 
 ## Within fsc/:
-This directory contains the input files and execute shell scripts for demographic modeling using the fastsimcoal2 program.
+This directory contains the input files for demographic modeling using the fastsimcoal2 program.
+
+## Software and versions
+A list of software tools used for variant calling and downstreampopulation genomic analyses in this study, together with theirversions and source URLs, is available in[software_versions.csv](software_versions.csv).
 
 ## Note
 This project is currently under development. Thank you!
