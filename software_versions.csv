@@ -10,11 +10,11 @@ IQ-TREE,2.2.2.7,https://github.com/iqtree/iqtree2,Maximum-likelihood phylogeneti
 OptM,0.1.9,https://github.com/optsuite/OptM,Determination of the optimal number of migration edges in TreeMix,R package
 pixy,2.2.4,https://github.com/ksamuk/pixy,Estimation of nucleotide diversity accounting for missing data and invariant sites,
 PLINK,1.90,https://www.cog-genomics.org/plink/,Iterative missing-data filtering of individuals and loci,
-PLINK2,v2.00,https://www.cog-genomics.org/plink/2.0/,SNP filtering and linkage disequilibrium pruning,
-PopCluster,v1.0,https://www.zsl.org/about-zsl/resources/software/popcluster,Model-based population structure and admixture inference,
-SAMtools,v.1.10,https://github.com/samtools/samtools,Processing and manipulation of sequence alignment files,
-tangler,v.0.3.3,https://github.com/acarafat/tangler,Tanglegram visualisation of homeolog-specific phylogenetic trees,R package
-TreeMix,v.1.13,https://web.stanford.edu/group/pritchardlab/software.html,Inference of historical population relationships and migration,
-Trimmomatic,v.0.30,https://github.com/usadellab/trimmomatic,Adapter removal and quality trimming of sequencing reads,
-vcftools,v.0.1.16,https://github.com/vcftools/vcftools,VCF processing and genotype data filtering,
+PLINK2,2.00,https://www.cog-genomics.org/plink/2.0/,SNP filtering and linkage disequilibrium pruning,
+PopCluster,1.0,https://www.zsl.org/about-zsl/resources/software/popcluster,Model-based population structure and admixture inference,
+SAMtools,1.10,https://github.com/samtools/samtools,Processing and manipulation of sequence alignment files,
+tangler,0.3.3,https://github.com/acarafat/tangler,Tanglegram visualisation of homeolog-specific phylogenetic trees,R package
+TreeMix,1.13,https://web.stanford.edu/group/pritchardlab/software.html,Inference of historical population relationships and migration,
+Trimmomatic,0.30,https://github.com/usadellab/trimmomatic,Adapter removal and quality trimming of sequencing reads,
+vcftools,0.1.16,https://github.com/vcftools/vcftools,VCF processing and genotype data filtering,
 
