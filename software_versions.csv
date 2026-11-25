@@ -10,7 +10,7 @@ IQ-TREE,2.2.2.7,https://github.com/iqtree/iqtree2,Maximum-likelihood phylogeneti
 OptM,0.1.9,https://github.com/optsuite/OptM,Determination of the optimal number of migration edges in TreeMix,R package
 pixy,2.2.4,https://github.com/ksamuk/pixy,Estimation of nucleotide diversity accounting for missing data and invariant sites,
 PLINK,1.90,https://www.cog-genomics.org/plink/,Iterative missing-data filtering of individuals and loci,
-pLINK2,v2.00,https://www.cog-genomics.org/plink/2.0/,SNP filtering and linkage disequilibrium pruning,
+PLINK2,v2.00,https://www.cog-genomics.org/plink/2.0/,SNP filtering and linkage disequilibrium pruning,
 PopCluster,v1.0,https://www.zsl.org/about-zsl/resources/software/popcluster,Model-based population structure and admixture inference,
 SAMtools,v.1.10,https://github.com/samtools/samtools,Processing and manipulation of sequence alignment files,
 tangler,v.0.3.3,https://github.com/acarafat/tangler,Tanglegram visualisation of homeolog-specific phylogenetic trees,R package
